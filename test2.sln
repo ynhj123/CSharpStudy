@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EchoAsynchronous", "EchoAsy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "echoSelect", "echoSelect\echoSelect.csproj", "{B6C66340-BF41-4FFB-AA14-0F85812B4FBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recursion", "Recursion\Recursion.csproj", "{C730CA76-6530-4834-98FC-B596F714A212}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recursion", "Recursion\Recursion.csproj", "{C730CA76-6530-4834-98FC-B596F714A212}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectOriented", "ObjectOriented\ObjectOriented.csproj", "{49706864-8454-4680-8B10-46CFA1826560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{C730CA76-6530-4834-98FC-B596F714A212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C730CA76-6530-4834-98FC-B596F714A212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C730CA76-6530-4834-98FC-B596F714A212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49706864-8454-4680-8B10-46CFA1826560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49706864-8454-4680-8B10-46CFA1826560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49706864-8454-4680-8B10-46CFA1826560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49706864-8454-4680-8B10-46CFA1826560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

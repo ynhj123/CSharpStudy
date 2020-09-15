@@ -56,7 +56,8 @@ namespace EchoAsynchronous
                     return;
                 }
                 string recvStr = System.Text.Encoding.Default.GetString(state.readBuff, 0, count);
-                byte[] sendBytes = System.Text.Encoding.Default.GetBytes("echo" + recvStr);
+                byte[] sendBytes = System.Text.Encoding.Default.GetBytes(recvStr);
+                Console.WriteLine("receive :" + recvStr);
                 socket.Send(sendBytes);//同步 or异步
                 socket.BeginReceive(state.readBuff, 0, 1024, 0, ReceiveCallBack, state);
 
