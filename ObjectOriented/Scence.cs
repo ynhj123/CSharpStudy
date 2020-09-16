@@ -7,6 +7,7 @@ namespace ObjectOriented
      */
     class Scence
     {
+        public static Random random = new Random();
         //行
         private int row;
         //列

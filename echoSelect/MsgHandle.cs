@@ -51,11 +51,11 @@ namespace echoSelect
             float x = float.Parse(split[1]);
             float y = float.Parse(split[2]);
             float z = float.Parse(split[3]);
- 
+
             state.x = x;
             state.y = y;
             state.z = z;
-      
+
             string sendStr = "Move|" + msg;
             foreach (ClientState client in Program.clients.Values)
             {
