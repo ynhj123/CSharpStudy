@@ -23,13 +23,13 @@ namespace GameServer.script.net
             writeIdx = defaultBytes.Length;
         }
 
-        public ByteArray()
+        public ByteArray(int size = DEFAULT_SIZE)
         {
-            this.bytes = new byte[DEFAULT_SIZE];
-            capacity = DEFAULT_SIZE;
-            initSize = DEFAULT_SIZE;
+            bytes = new byte[size];
+            capacity = size;
+            initSize = size;
             readIdx = 0;
-            writeIdx = DEFAULT_SIZE;
+            writeIdx = 0;
         }
 
         public void Resize(int size)

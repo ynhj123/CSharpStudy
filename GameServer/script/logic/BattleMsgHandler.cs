@@ -1,7 +1,5 @@
 ﻿using GameServer.script.net;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GameServer.script.logic
 {
@@ -10,7 +8,7 @@ namespace GameServer.script.logic
     }
     public partial class MsgHandler
     {
-        public static void MsgMove(ClientState c ,MsgBase msg)
+        public static void MsgMove(ClientState c, MsgBase msg)
         {
             MsgMove msgMove = (MsgMove)msg;
             Console.WriteLine(msgMove.x);

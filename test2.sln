@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recursion", "Recursion\Recu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectOriented", "ObjectOriented\ObjectOriented.csproj", "{49706864-8454-4680-8B10-46CFA1826560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\GameServer.csproj", "{4F23F2B1-7032-4839-A7C1-092B4FA1930F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\GameServer.csproj", "{4F23F2B1-7032-4839-A7C1-092B4FA1930F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleGame", "ConsoleGame\ConsoleGame.csproj", "{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{4F23F2B1-7032-4839-A7C1-092B4FA1930F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F23F2B1-7032-4839-A7C1-092B4FA1930F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F23F2B1-7032-4839-A7C1-092B4FA1930F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

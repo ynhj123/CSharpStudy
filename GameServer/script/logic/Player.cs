@@ -1,7 +1,4 @@
 ﻿using GameServer.script.net;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GameServer.script.logic
 {

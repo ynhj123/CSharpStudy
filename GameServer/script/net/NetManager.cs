@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
 
 namespace GameServer.script.net
 {
@@ -13,7 +11,7 @@ namespace GameServer.script.net
         public static Socket listenfd;
         public static Dictionary<Socket, ClientState> clients = new Dictionary<Socket, ClientState>();
         static List<Socket> checkRead = new List<Socket>();
-        public static long pingInterval = 30;
+        public static long pingInterval = 5;
         public static void StartLoop(int listenPort)
         {
             listenfd = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -26,10 +24,10 @@ namespace GameServer.script.net
             {
                 ResetCheckRead(); // 重置
                 Socket.Select(checkRead, null, null, 1000);
-                for (int i = checkRead.Count -1 ; i >=0; i--)
+                for (int i = checkRead.Count - 1; i >= 0; i--)
                 {
                     Socket s = checkRead[i];
-                    if(s == listenfd)
+                    if (s == listenfd)
                     {
                         ReadListenfd(s);
                     }
@@ -38,6 +36,7 @@ namespace GameServer.script.net
                         ReadClientfd(s);
                     }
                 }
+                //如果是连接请求
                 Timer();
             }
         }
@@ -54,12 +53,12 @@ namespace GameServer.script.net
             ClientState state = clients[clientfd];
             ByteArray readBuff = state.readBuff;
             int count = 0;
-            if(readBuff.remain <= 0)
+            if (readBuff.remain <= 0)
             {
                 OnReceiveData(state);
                 readBuff.MoveBytes();
             }
-            if(readBuff.remain <= 0)
+            if (readBuff.remain <= 0)
             {
                 Console.WriteLine("Receive fail,naybe msg length > buff capacity");
                 Close(state);
@@ -71,8 +70,8 @@ namespace GameServer.script.net
 
             }
             catch (SocketException ex)
-            {   
-                Console.WriteLine("Socket close {0}",clientfd.RemoteEndPoint.ToString());
+            {
+                Console.WriteLine("Socket close {0}", clientfd.RemoteEndPoint.ToString());
                 Close(state);
                 return;
             }
@@ -85,20 +84,20 @@ namespace GameServer.script.net
         {
             ByteArray readBuff = state.readBuff;
             //msglength
-            if(readBuff.length <= 2)
+            if (readBuff.length <= 2)
             {
                 return;
             }
             Int16 bodyLength = readBuff.ReadInt16();
             //msg
-            if(readBuff.length < bodyLength)
+            if (readBuff.length < bodyLength)
             {
                 return;
             }
             //name
             int nameCount = 0;
             string protoName = MsgBase.DecodeName(readBuff.bytes, readBuff.readIdx, out nameCount);
-            if(protoName == "")
+            if (protoName == "")
             {
                 Console.WriteLine("OnReceiveData msgDecodeName failed");
                 Close(state);
@@ -112,10 +111,10 @@ namespace GameServer.script.net
             readBuff.CheckAndMoveBytes();
 
             //fire
-            System.Reflection.MethodInfo methodInfo = typeof(BattleMsgHandler).GetMethod(protoName);
-            object[] ob = {state,msgBase };
+            System.Reflection.MethodInfo methodInfo = typeof(MsgHandler).GetMethod(protoName);
+            object[] ob = { state, msgBase };
             Console.WriteLine("Receive {0}", protoName);
-            if(methodInfo != null)
+            if (methodInfo != null)
             {
                 methodInfo.Invoke(null, ob);
             }
@@ -123,7 +122,7 @@ namespace GameServer.script.net
             {
                 Console.WriteLine("OnReceiveData invoke fail {0}", protoName);
             }
-            if(readBuff.length > 2)
+            if (readBuff.length > 2)
             {
                 OnReceiveData(state);
             }
@@ -146,6 +145,7 @@ namespace GameServer.script.net
                 Console.WriteLine("accept {0}", clientfd.RemoteEndPoint);
                 ClientState clientState = new ClientState();
                 clientState.socket = clientfd;
+                clientState.lastPingTime = NetManager.GetTimeStamp();
                 clients.Add(clientfd, clientState);
             }
             catch (SocketException ex)
@@ -166,11 +166,11 @@ namespace GameServer.script.net
         }
         public static void Send(ClientState cs, MsgBase msg)
         {
-            if(cs == null)
+            if (cs == null)
             {
                 return;
             }
-            if(!cs.socket.Connected)
+            if (!cs.socket.Connected)
             {
                 return;
             }
@@ -189,7 +189,7 @@ namespace GameServer.script.net
             }
             catch (SocketException ex)
             {
-                Console.WriteLine("Socket Close on BeginSend {0}",ex.ToString());
+                Console.WriteLine("Socket Close on BeginSend {0}", ex.ToString());
                 throw;
             }
         }

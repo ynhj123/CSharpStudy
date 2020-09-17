@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 
+
 public class MsgBase
 {
     public string protoName = "";
+
 
     public static byte[] Encode(MsgBase msgBase)
     {
@@ -13,7 +15,7 @@ public class MsgBase
     }
     public static T Decode<T>(string protoName, byte[] bytes, int offset, int count)
     {
-        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2 , count);
+        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count);
         T msgBase = JsonConvert.DeserializeObject<T>(s);
         return msgBase;
     }
@@ -25,11 +27,13 @@ public class MsgBase
         bytes[0] = (byte)(len % 256);
         bytes[1] = (byte)(len / 256);
         Array.Copy(nameBytes, 0, bytes, 2, len);
+
         return bytes;
     }
 
     public static string DecodeName(byte[] bytes, int offset, out int count)
     {
+
         count = 0;
         if (offset + 2 > bytes.Length)
         {
