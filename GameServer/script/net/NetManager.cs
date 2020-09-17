@@ -71,7 +71,7 @@ namespace GameServer.script.net
             }
             catch (SocketException ex)
             {
-                Console.WriteLine("Socket close {0}", clientfd.RemoteEndPoint.ToString());
+                Console.WriteLine("Socket close {0} reason {1}", clientfd.RemoteEndPoint.ToString(),ex.ToString());
                 Close(state);
                 return;
             }

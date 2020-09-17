@@ -1,4 +1,5 @@
-﻿using echoSelect;
+﻿
+using ConsoleGame.utils.net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -162,7 +163,7 @@ public static class NetManagerEvent
     {
         lastPongTime = GetTimeStamp();
     }
-    public static void PingUpdate()
+    private static void PingUpdate()
     {
         if (!isUserPing)
         {

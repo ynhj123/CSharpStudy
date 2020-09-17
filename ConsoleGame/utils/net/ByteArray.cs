@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace echoSelect
+namespace ConsoleGame.utils.net
 {
     class ByteArray
     {

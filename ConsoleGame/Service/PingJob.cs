@@ -9,7 +9,7 @@ namespace ConsoleGame.Service
 
         public virtual Task Execute(IJobExecutionContext context)
         {
-            NetManagerEvent.PingUpdate();
+            NetManagerEvent.Update();
             return Console.Out.WriteLineAsync("send ping");
         }
 
