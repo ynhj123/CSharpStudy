@@ -1,6 +1,6 @@
 ﻿namespace ConsoleGame.model
 {
-    class Scence
+    public class Scence
     {
     }
 }

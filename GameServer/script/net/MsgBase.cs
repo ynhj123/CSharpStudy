@@ -13,7 +13,7 @@ public class MsgBase
     }
     public static T Decode<T>(string protoName, byte[] bytes, int offset, int count)
     {
-        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2 , count);
+        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count);
         T msgBase = JsonConvert.DeserializeObject<T>(s);
         return msgBase;
     }

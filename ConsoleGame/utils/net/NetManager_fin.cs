@@ -2,6 +2,7 @@
 using ConsoleGame.utils.net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
 /**
@@ -27,7 +28,6 @@ public static class NetManagerEvent
     static int msgCount = 0;
     readonly static int MAX_MESSAGE_FIRE = 10;
 
-    static Queue<string> msgQueue = new Queue<string>();
     public static void AddEventListen(NetEvent netEvent, EventListener listener)
     {
         if (eventListeners.ContainsKey(netEvent))
@@ -107,12 +107,12 @@ public static class NetManagerEvent
     {
         if (socket != null && socket.Connected)
         {
-            Console.WriteLine("Connect fail,already connected");
+            Debug.WriteLine("Connect fail,already connected");
             return;
         }
         if (isConnecting)
         {
-            Console.WriteLine("Connect fail,isConnecting");
+            Debug.WriteLine("Connect fail,isConnecting");
             return;
         }
         InitState();
@@ -127,7 +127,7 @@ public static class NetManagerEvent
         {
             Socket socket = (Socket)ar.AsyncState;
             socket.EndConnect(ar);
-            Console.WriteLine("Socket Connect Succ");
+            Debug.WriteLine("Socket Connect Succ");
             FireEvent(NetEvent.ConnectSucc, "");
             isConnecting = false;
             //接受数据
@@ -136,7 +136,7 @@ public static class NetManagerEvent
         }
         catch (SocketException ex)
         {
-            Console.WriteLine("Socket Connect Fail" + ex.ToString());
+            Debug.WriteLine("Socket Connect Fail" + ex.ToString());
             FireEvent(NetEvent.ConnectFail, ex.ToString());
             isConnecting = false;
 
@@ -208,7 +208,7 @@ public static class NetManagerEvent
         try
         {
             Socket socket = (Socket)result.AsyncState;
-          
+
             int count = socket.EndReceive(result);
             if (count == 0)
             {
@@ -232,7 +232,7 @@ public static class NetManagerEvent
         catch (Exception ex)
         {
 
-            Console.WriteLine("Socket Receive fail" + ex.ToString());
+            Debug.WriteLine("Socket Receive fail" + ex.ToString());
         }
     }
 
@@ -256,12 +256,12 @@ public static class NetManagerEvent
         string protoName = MsgBase.DecodeName(readBuff.bytes, readBuff.readIdx, out nameCount);
         if (protoName == "")
         {
-            Console.WriteLine("OnReceiveData msgBase.Decodename fail");
+            Debug.WriteLine("OnReceiveData msgBase.Decodename fail");
             return;
         }
-        Console.WriteLine("OnReceiveData msgBase {0}", protoName);
+        Debug.WriteLine("OnReceiveData msgBase {0}", protoName);
 
-       readBuff.readIdx += nameCount;
+        readBuff.readIdx += nameCount;
         //body
         int bodyCount = bodyLength - nameCount;
         MsgBase msgBase = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
@@ -316,7 +316,7 @@ public static class NetManagerEvent
         {
             socket.BeginSend(sendBytes, 0, sendBytes.Length, 0, SendCallback, socket);
         }
-       
+
     }
 
     private static void SendCallback(IAsyncResult ar)
@@ -329,7 +329,7 @@ public static class NetManagerEvent
         int count = socket.EndSend(ar);
         ByteArray byteArray;
         lock (writeQueue)
-        {   
+        {
             //先读取队列
             byteArray = writeQueue.First();
         }
@@ -338,11 +338,11 @@ public static class NetManagerEvent
         if (byteArray.length == 0)
         {
             lock (writeQueue)
-            { 
+            {
                 //将元素弹出
                 writeQueue.Dequeue();
-               //顺便看看还有没有要处理的
-               if(writeQueue.Count == 0)
+                //顺便看看还有没有要处理的
+                if (writeQueue.Count == 0)
                 {
                     byteArray = null;
                 }
