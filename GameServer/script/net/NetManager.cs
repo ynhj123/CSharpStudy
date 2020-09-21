@@ -106,13 +106,13 @@ namespace GameServer.script.net
 
             //body
             int bodyCount = bodyLength - nameCount;
-            MsgBase msgBase = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
+            string msg = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
             readBuff.readIdx += bodyCount;
             readBuff.CheckAndMoveBytes();
 
             //fire
             System.Reflection.MethodInfo methodInfo = typeof(MsgHandler).GetMethod(protoName);
-            object[] ob = { state, msgBase };
+            object[] ob = { state, msg };
             Console.WriteLine("Receive {0}", protoName);
             if (methodInfo != null)
             {

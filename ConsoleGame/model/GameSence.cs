@@ -10,9 +10,11 @@ namespace ConsoleGame.model
         int x, y;
         int interval;
         char[,] map;
+        public bool isStrat = true;
+        public bool isWin = false;
 
-        List<Sprite> sprites = new List<Sprite>();
-        List<IExecuteSystem> systems = new List<IExecuteSystem>();
+        public List<Sprite> sprites = new List<Sprite>();
+        public List<IExecuteSystem> systems = new List<IExecuteSystem>();
 
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
@@ -69,7 +71,7 @@ namespace ConsoleGame.model
         public void Handle()
         {
 
-            while (true)
+            while (isStrat)
             {
                 foreach (IExecuteSystem system in systems)
                 {
@@ -85,22 +87,22 @@ namespace ConsoleGame.model
 
                     }
                 }
-                //碰撞监听
 
-                for (int i = 0; i < sprites.Count; i++)
-                {
-                    for (int j = i+1; j < sprites.Count; j++)
-                    {
-                        if(sprites[i].Position.X == sprites[j].Position.X  && sprites[i].Position.Y == sprites[j].Position.Y)
-                        {
-                            
-                        }
-                    }
 
-                }
                 Print();
                 Thread.Sleep(1000 / this.interval);
             }
+            if (isWin)
+            {
+                Console.WriteLine("game win");
+
+            }
+            else
+            {
+                Console.WriteLine("game over");
+
+            }
+
 
         }
 

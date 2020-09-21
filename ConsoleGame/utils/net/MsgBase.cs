@@ -13,11 +13,10 @@ public class MsgBase
         string s = JsonConvert.SerializeObject(msgBase);
         return System.Text.Encoding.UTF8.GetBytes(s);
     }
-    public static T Decode<T>(string protoName, byte[] bytes, int offset, int count)
+    public static string Decode<T>(string protoName, byte[] bytes, int offset, int count)
     {
-        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count);
-        T msgBase = JsonConvert.DeserializeObject<T>(s);
-        return msgBase;
+        string s  = System.Text.Encoding.UTF8.GetString(bytes, offset+2, count-2);
+        return s;
     }
     public static byte[] EncodeName(MsgBase msgBase)
     {

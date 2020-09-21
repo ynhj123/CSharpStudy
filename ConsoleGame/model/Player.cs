@@ -22,6 +22,7 @@ namespace ConsoleGame.model
             skill.Style = '*';
             scence.AddSprite(skill);
         }
+
         public void beAttacked(Skill skill, GameSence scence)
         {
             this.player.Hp -= skill.Damage;
@@ -43,6 +44,7 @@ namespace ConsoleGame.model
 
                 this.Position.X--;
                 isMove = true;
+
             }
             else if (Veloctity.down == this.Velocity.Veloctity && this.Position.X < scence.X - 2)
             {
@@ -72,6 +74,6 @@ namespace ConsoleGame.model
             return isMove;
         }
 
-       
+
     }
 }

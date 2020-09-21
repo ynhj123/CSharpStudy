@@ -1,13 +1,56 @@
-﻿using System;
+﻿using Collection.List;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Collection
 {
     class Program
     {
-        static Random random;
+        public static Random random;
         static void Main(string[] args)
         {
-            bool isStart = true;
+            CollectionDictary collectionDictary = new CollectionDictary();
+            Dictionary<char, int> leftMaps = collectionDictary.getInitDictionary();
+            Dictionary<char, int> rightMaps = collectionDictary.getInitDictionary();
+            collectionDictary.removeEvenDictionary(leftMaps);
+            collectionDictary.removeEvenDictionary(rightMaps);
+            Dictionary<char, int> copyleft = collectionDictary.CopyDictionary<char, int>(leftMaps);
+            collectionDictary.MargeLeftDictionary(copyleft, rightMaps);
+            List<string> strList = new List<string> { "100", "200", "302", "400", "500", "601" };
+            Dictionary<string, string> dictionaries = collectionDictary.ListToDict(strList);
+            List<string> lists = collectionDictary.DictToList(dictionaries);
+            List<int> orignList = new List<int> { 100, 200, 302, 400, 500, 601 };
+            List<int> indexList = new List<int> { 2, 3, 5 };
+            CollectionsList.RemoveList(orignList, indexList);
+            foreach (var num in orignList)
+            {
+                Console.WriteLine(num);
+            }
+            //List<int> repeatArr = new List<int> { 1,2,4,5,3 };
+            List<int> repeatArr = new List<int> { 5, 5, 5, 5, 5 };
+            List<int> repeatLists = CollectionsList.GetRepeatList(repeatArr);
+            foreach (var num in repeatLists)
+            {
+                Console.WriteLine(num);
+            }
+            int v = repeatLists.Sum();
+            double v1 = repeatArr.Average();
+            int v2 = repeatLists.LastIndexOf(5);
+            int count = repeatLists.Count;
+
+            repeatLists.Insert(count, v);
+            int count1 = repeatLists.Count;
+            repeatLists.Insert(count1, Convert.ToInt32(v1));
+            int count2 = repeatLists.Count;
+            repeatLists.Insert(count2, v2);//
+            repeatLists.Add(v2);
+            int count3 = repeatLists.Count;
+            int[] vs = repeatLists.ToArray();
+            PrintArr(vs);
+
+            
+            /*bool isStart = true;
             int row;
             int col;
             while (isStart)
@@ -45,7 +88,7 @@ namespace Collection
 
                     }
                 }
-            }
+            }*/
             /*int[] a = { 1, 3, 5 };
             int[] b = { 2, 4 };
             PrintArr(MargeSort(b, a));*/

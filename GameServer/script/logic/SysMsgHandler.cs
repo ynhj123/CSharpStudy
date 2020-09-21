@@ -8,7 +8,7 @@ namespace GameServer.script.logic
     }
     public partial class MsgHandler
     {
-        public static void MsgPing(ClientState c, MsgBase msg)
+        public static void MsgPing(ClientState c, string  msg)
         {
             Console.WriteLine("MsgPing");
             c.lastPingTime = NetManager.GetTimeStamp();

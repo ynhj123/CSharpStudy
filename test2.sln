@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectOriented", "ObjectOri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\GameServer.csproj", "{4F23F2B1-7032-4839-A7C1-092B4FA1930F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleGame", "ConsoleGame\ConsoleGame.csproj", "{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleGame", "ConsoleGame\ConsoleGame.csproj", "{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundBattle", "..\RoundBattle\RoundBattle.csproj", "{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

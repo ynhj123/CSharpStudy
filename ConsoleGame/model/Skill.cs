@@ -67,8 +67,7 @@ namespace ConsoleGame.model
                 isMove = true;
 
             }
-            //击中人销毁
-            
+
             //越界销毁
             if (this.Position.X < 1 || this.Position.X > scence.X - 2 || this.Position.Y < 1 || this.Position.Y > scence.Y - 2)
             {
@@ -78,6 +77,6 @@ namespace ConsoleGame.model
             return isMove;
 
         }
-       
+
     }
 }
