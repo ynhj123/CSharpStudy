@@ -14,7 +14,7 @@ public class MsgBase
     }
     public static string Decode<T>(string protoName, byte[] bytes, int offset, int count)
     {
-        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count);
+        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count-2);
         return s;
     }
     public static byte[] EncodeName(MsgBase msgBase)
