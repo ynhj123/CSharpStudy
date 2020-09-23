@@ -24,8 +24,9 @@ namespace Collection
                 Console.WriteLine(list[i].name + " " + list[i].level);
             }
             manager.Print();
+            manager.savePath("../../pokemon.txt");
             manager.RemoveByID(2);
-
+            manager.loadData("../../pokemon.txt");
             manager.Print();
 
 

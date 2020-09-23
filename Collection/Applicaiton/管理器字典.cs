@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -126,6 +127,39 @@ namespace Collection.Applicaiton
             }
         }
 
+        public void savePath(String path)
+        {
+            string content = JsonConvert.SerializeObject(dict);
+            IOUtils.SaveToFile_Binary(path, content);
+        }
+        public void loadData(String path)
+        {
+            string content = IOUtils.LoadFromFile_Binary(path);
+            Dictionary<int, Pokemon> dictionaries = JsonConvert.DeserializeObject<Dictionary<int, Pokemon>>(content);
+            this.dict = dictionaries;
+            this.dictName2 = ConvertNameDict(this.dict);
+        }
+
+        private Dictionary<string, List<int>> ConvertNameDict(Dictionary<int, Pokemon> dict)
+        {
+            Dictionary<string, List<int>> nameDict = new Dictionary<string, List<int>>();
+            foreach (var item in dict.Values)
+            {
+                List<int> lists;
+                bool isSuccess = nameDict.TryGetValue(item.name, out lists);
+                if (isSuccess)
+                {
+                    lists.Add(item.id);
+                }
+                else
+                {
+                    lists = new List<int>();
+                    lists.Add(item.id);
+                    nameDict.Add(item.name, lists);
+                }
+            }
+            return nameDict;
+        }
     }
 
 
