@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleGame", "ConsoleGame\ConsoleGame.csproj", "{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundBattle", "..\RoundBattle\RoundBattle.csproj", "{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundBattle", "RoundBattle\RoundBattle.csproj", "{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
