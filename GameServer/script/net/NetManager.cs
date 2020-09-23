@@ -1,4 +1,5 @@
 ﻿using GameServer.script.logic;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -106,7 +107,8 @@ namespace GameServer.script.net
 
             //body
             int bodyCount = bodyLength - nameCount;
-            string msg = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
+            MsgBase msg = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
+
             readBuff.readIdx += bodyCount;
             readBuff.CheckAndMoveBytes();
 
@@ -122,6 +124,11 @@ namespace GameServer.script.net
             {
                 Console.WriteLine("OnReceiveData invoke fail {0}", protoName);
             }
+            //广播
+            /*foreach (var item in clients.Values)
+            {
+                Send(item, msg);
+            }*/
             if (readBuff.length > 2)
             {
                 OnReceiveData(state);
@@ -176,6 +183,37 @@ namespace GameServer.script.net
             }
             byte[] nameBytes = MsgBase.EncodeName(msg);
             byte[] bodyBytes = MsgBase.Encode(msg);
+            int len = nameBytes.Length + bodyBytes.Length;
+            byte[] sendBytes = new Byte[2 + len];
+            sendBytes[0] = (byte)(len % 256);
+            sendBytes[1] = (byte)(len / 256);
+
+            Array.Copy(nameBytes, 0, sendBytes, 2, nameBytes.Length);
+            Array.Copy(bodyBytes, 0, sendBytes, 2 + nameBytes.Length, bodyBytes.Length);
+            try
+            {
+                cs.socket.BeginSend(sendBytes, 0, sendBytes.Length, 0, null, null);
+            }
+            catch (SocketException ex)
+            {
+                Console.WriteLine("Socket Close on BeginSend {0}", ex.ToString());
+                throw;
+            }
+        }
+
+        public static void Send(ClientState cs, string msg)
+        {
+            if (cs == null)
+            {
+                return;
+            }
+            if (!cs.socket.Connected)
+            {
+                return;
+            }
+            MsgBase msgBase = JsonConvert.DeserializeObject<MsgBase>(msg);
+            byte[] nameBytes = MsgBase.EncodeName(msgBase);
+            byte[] bodyBytes = System.Text.Encoding.UTF8.GetBytes(msg);
             int len = nameBytes.Length + bodyBytes.Length;
             byte[] sendBytes = new Byte[2 + len];
             sendBytes[0] = (byte)(len % 256);

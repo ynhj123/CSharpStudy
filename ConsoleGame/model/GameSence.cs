@@ -102,6 +102,7 @@ namespace ConsoleGame.model
                 Console.WriteLine("game over");
 
             }
+            NetManagerEvent.Close();
 
 
         }

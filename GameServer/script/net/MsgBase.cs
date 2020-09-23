@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Globalization;
 
 public class MsgBase
 {
@@ -12,10 +11,12 @@ public class MsgBase
         string s = JsonConvert.SerializeObject(msgBase);
         return System.Text.Encoding.UTF8.GetBytes(s);
     }
-    public static string Decode<T>(string protoName, byte[] bytes, int offset, int count)
+    public static MsgBase Decode<T>(string protoName, byte[] bytes, int offset, int count)
     {
-        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count-2);
-        return s;
+        string s = System.Text.Encoding.UTF8.GetString(bytes, offset + 2, count - 2);
+        /*string s = System.Text.Encoding.UTF8.GetString(bytes, offset, count);*/
+        MsgBase msgBase = (MsgBase)JsonConvert.DeserializeObject(s, Type.GetType(protoName));
+        return msgBase;
     }
     public static byte[] EncodeName(MsgBase msgBase)
     {

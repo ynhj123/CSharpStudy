@@ -1,6 +1,5 @@
 ﻿
 using ConsoleGame.utils.net;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +13,7 @@ public static class NetManagerEvent
     static Socket socket;
     static ByteArray readBuff;
     static Queue<ByteArray> writeQueue;
-    public delegate void MsgListener(string msgBase);
+    public delegate void MsgListener(MsgBase msgBase);
     public delegate void EventListener(string str);
     //代理事件
     private static Dictionary<NetEvent, EventListener> eventListeners = new Dictionary<NetEvent, EventListener>();
@@ -25,7 +24,7 @@ public static class NetManagerEvent
     static long lastPingTime = 0;
     static long lastPongTime = 0;
     private static Dictionary<string, MsgListener> listeners = new Dictionary<string, MsgListener>();
-    static List<string> msgList = new List<string>();
+    static List<MsgBase> msgList = new List<MsgBase>();
     static int msgCount = 0;
     readonly static int MAX_MESSAGE_FIRE = 10;
 
@@ -84,7 +83,7 @@ public static class NetManagerEvent
         }
 
     }
-    private static void FireMsg(string msgName, string msgBase)
+    private static void FireMsg(string msgName, MsgBase msgBase)
     {
         if (listeners.ContainsKey(msgName))
         {
@@ -150,7 +149,7 @@ public static class NetManagerEvent
         readBuff = new ByteArray();
         writeQueue = new Queue<ByteArray>();
         isConnecting = false;
-        msgList = new List<string>();
+        msgList = new List<MsgBase>();
         msgCount = 0;
         lastPingTime = GetTimeStamp();
         lastPongTime = GetTimeStamp();
@@ -160,7 +159,7 @@ public static class NetManagerEvent
             AddListener("MsgPong", OnMsgPong);
         }
     }
-    private static void OnMsgPong(string msgBase)
+    private static void OnMsgPong(MsgBase msgBase)
     {
         lastPongTime = GetTimeStamp();
     }
@@ -265,7 +264,7 @@ public static class NetManagerEvent
         readBuff.readIdx += nameCount;
         //body
         int bodyCount = bodyLength - nameCount;
-        string msgBase = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
+        MsgBase msgBase = MsgBase.Decode<MsgBase>(protoName, readBuff.bytes, readBuff.readIdx, bodyCount);
         readBuff.readIdx += bodyCount;
         readBuff.CheckAndMoveBytes();
         //add list
@@ -378,7 +377,7 @@ public static class NetManagerEvent
         }
         for (int i = 0; i < MAX_MESSAGE_FIRE; i++)
         {
-            string msgBase = null;
+            MsgBase msgBase = null;
             lock (msgList)
             {
                 if (msgList.Count > 0)
@@ -390,8 +389,8 @@ public static class NetManagerEvent
             }
             if (msgBase != null)
             {
-                MsgBase msgBase1 = JsonConvert.DeserializeObject<MsgBase>(msgBase);
-                FireMsg(msgBase1.protoName, msgBase);
+
+                FireMsg(msgBase.protoName, msgBase);
             }
             else
             {

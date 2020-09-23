@@ -1,6 +1,4 @@
 ﻿using GameServer.script.net;
-using Newtonsoft.Json;
-using System;
 
 namespace GameServer.script.logic
 {
@@ -9,13 +7,11 @@ namespace GameServer.script.logic
     }
     public partial class MsgHandler
     {
-        public static void MsgMove(ClientState c, string msg)
+        public static void MsgMove(ClientState c, MsgBase msg)
         {
 
-            MsgMove msgMove = JsonConvert.DeserializeObject<MsgMove>(msg);
-            Console.WriteLine(msgMove.x);
-            /*msgMove.x++;*/
-            NetManager.Send(c, msgMove);
+
+            NetManager.Send(c, msg);
         }
     }
 }

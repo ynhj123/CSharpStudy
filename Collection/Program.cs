@@ -1,7 +1,5 @@
-﻿using Collection.List;
+﻿using Collection.Applicaiton;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Collection
 {
@@ -10,14 +8,45 @@ namespace Collection
         public static Random random;
         static void Main(string[] args)
         {
+            PokemonManager manager = new PokemonManager();
+            var p1 = new Pokemon("皮卡丘", 10);
+            var p2 = new Pokemon("水箭龟", 11);
+            var p3 = new Pokemon("皮卡丘", 12);
+            var p4 = new Pokemon("超梦", 13);
+            manager.AddPokemon(p1);
+            manager.AddPokemon(p2);
+            manager.AddPokemon(p3);
+            manager.AddPokemon(p4);
+
+            var list = manager.FindByName("皮卡丘");
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i].name + " " + list[i].level);
+            }
+            manager.Print();
+            manager.RemoveByID(2);
+
+            manager.Print();
+
+
+            Console.ReadKey();
+            /*String a = "abcxxxx";
+            String b = new String("abcxxxx");
+            string c = "abcxxxx";
+
+            Console.WriteLine(a == b);
+            Console.WriteLine(a == c);
             CollectionDictary collectionDictary = new CollectionDictary();
             Dictionary<char, int> leftMaps = collectionDictary.getInitDictionary();
             Dictionary<char, int> rightMaps = collectionDictary.getInitDictionary();
             collectionDictary.removeEvenDictionary(leftMaps);
             collectionDictary.removeEvenDictionary(rightMaps);
+            Dictionary<char, List<int>> dictionaries1 = collectionDictary.MargeAllDictionary(leftMaps, rightMaps);
+            collectionDictary.PrintDict<char, List<int>>(dictionaries1);
             Dictionary<char, int> copyleft = collectionDictary.CopyDictionary<char, int>(leftMaps);
             collectionDictary.MargeLeftDictionary(copyleft, rightMaps);
             List<string> strList = new List<string> { "100", "200", "302", "400", "500", "601" };
+          
             Dictionary<string, string> dictionaries = collectionDictary.ListToDict(strList);
             List<string> lists = collectionDictary.DictToList(dictionaries);
             List<int> orignList = new List<int> { 100, 200, 302, 400, 500, 601 };
@@ -47,9 +76,9 @@ namespace Collection
             repeatLists.Add(v2);
             int count3 = repeatLists.Count;
             int[] vs = repeatLists.ToArray();
-            PrintArr(vs);
+            PrintArr(vs);*/
 
-            
+
             /*bool isStart = true;
             int row;
             int col;

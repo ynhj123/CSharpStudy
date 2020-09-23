@@ -48,3 +48,9 @@ attach
 room add remove update list 
 start
 
+帧同步 广播某个操作状态
+状态同步 广播当前场景的精灵信息
+事件同步 整合帧同步 + 状态同步
+
+服务端 也需要定时发送收到的信息组
+
