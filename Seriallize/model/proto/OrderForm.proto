@@ -1,0 +1,7 @@
+﻿syntax = "proto3";
+message OrderForm{
+	 int32 id = 1;
+	 string name = 2;
+	 int32 num = 3;
+	 double price = 4;
+}

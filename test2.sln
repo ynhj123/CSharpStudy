@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleGame", "ConsoleGame\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundBattle", "RoundBattle\RoundBattle.csproj", "{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seriallize", "Seriallize\Seriallize.csproj", "{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

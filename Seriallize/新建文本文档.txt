@@ -1,0 +1,1 @@
+protoc --proto_path=D:\git\CSharpStudy\Seriallize\model\proto OrderForm.proto --csharp_out=D:\git\CSharpStudy\Seriallize\model\src
