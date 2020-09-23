@@ -32,9 +32,30 @@ namespace ConsoleGame
             Console.ReadKey();
         }
         public static void InitNet()
+
         {
+            NetManagerEvent.AddListener("Enter", OnEnter);
+            NetManagerEvent.AddListener("Move", OnMove);
+            NetManagerEvent.AddListener("Leave", OnLeave);
             NetManagerEvent.Connect("127.0.0.1", 8888);
+
         }
+
+        private static void OnLeave(MsgBase msgBase)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void OnMove(MsgBase msgBase)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void OnEnter(MsgBase msgBase)
+        {
+            throw new NotImplementedException();
+        }
+
         public async static Task InitJob()
         {
             JobController.Init();
