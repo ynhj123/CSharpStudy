@@ -52,10 +52,7 @@ namespace ConsoleGame.Controller
                 default:
                     break;
             }
-            MsgMove msgMove = new MsgMove();
-            msgMove.x = player.Position.X;
-            msgMove.y = player.Position.Y;
-            NetManagerEvent.Send(msgMove);
+           
 
         }
 

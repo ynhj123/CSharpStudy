@@ -6,6 +6,7 @@ namespace ConsoleGame.model
     {
         private char style;
         bool isMove;
+        private string id;
 
 
         private PositionComponent position = new PositionComponent();
@@ -15,6 +16,7 @@ namespace ConsoleGame.model
         public VelocityComponent Velocity { get => velocity; set => velocity = value; }
         public char Style { get => style; set => style = value; }
         public bool IsMove { get => isMove; set => isMove = value; }
+        public string Id { get => id; set => id = value; }
 
         public abstract bool Move(GameSence scence);
 

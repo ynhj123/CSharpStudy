@@ -13,6 +13,7 @@ namespace ConsoleGame.model
             this.Velocity.Veloctity = Veloctity.right;
             this.Style = style;
             this.IsMove = false;
+            this.Id = System.Guid.NewGuid().ToString("N");
 
         }
 
@@ -71,6 +72,12 @@ namespace ConsoleGame.model
             {
                 isMove = true;
             }
+            MsgMove msgMove = new MsgMove();
+            msgMove.x = this.Position.X;
+            msgMove.y = this.Position.Y;
+            msgMove.spriteId = this.Id;
+            msgMove.veloctity = (int)this.Velocity.Veloctity;
+            NetManagerEvent.Send(msgMove);
             return isMove;
         }
 

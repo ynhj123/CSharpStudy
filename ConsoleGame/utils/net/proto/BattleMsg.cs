@@ -1,12 +1,17 @@
-﻿public class MsgMove : MsgBase
+﻿using System;
+
+public class MsgMove : MsgBase
 {
     public MsgMove()
     {
         protoName = "MsgMove";
     }
+    public string spriteId = "";
     public int x = 0;
     public int y = 0;
     public int z = 0;
+    public int veloctity = (int)ConsoleKey.UpArrow;
+
 }
 public class MsgAttack : MsgBase
 {

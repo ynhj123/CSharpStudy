@@ -73,7 +73,7 @@ namespace ConsoleGame.model
             {
                 scence.RemoveSprite(this);
                 isMove = false;
-            }
+            }  
             return isMove;
 
         }

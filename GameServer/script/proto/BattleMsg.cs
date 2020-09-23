@@ -4,9 +4,12 @@
     {
         protoName = "MsgMove";
     }
+    public string spriteId = "";
     public int x = 0;
     public int y = 0;
     public int z = 0;
+    public int veloctity = 0;
+
 }
 public class MsgAttack : MsgBase
 {
