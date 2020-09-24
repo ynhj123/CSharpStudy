@@ -19,7 +19,7 @@ public static class NetManagerEvent
     private static Dictionary<NetEvent, EventListener> eventListeners = new Dictionary<NetEvent, EventListener>();
     static bool isConnecting = false;
     static bool isClosing = false;
-    public static bool isUserPing = true;
+    public static bool isUserPing = false;
     public static int PingInterval = 5;
     static long lastPingTime = 0;
     static long lastPongTime = 0;
@@ -259,7 +259,7 @@ public static class NetManagerEvent
             Debug.WriteLine("OnReceiveData msgBase.Decodename fail");
             return;
         }
-        Debug.WriteLine("OnReceiveData msgBase {0}", protoName);
+        Debug.WriteLine("OnReceiveData msgBase:" + protoName);
 
         readBuff.readIdx += nameCount;
         //body

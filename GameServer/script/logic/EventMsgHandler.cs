@@ -1,5 +1,7 @@
-﻿using GameServer.script.net;
-using System;
+﻿using GameServer.script.logic;
+using GameServer.script.net;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameServer.script
 {
@@ -10,9 +12,11 @@ namespace GameServer.script
     {
         public static void OnDisconnect(ClientState c)
         {
-            Console.WriteLine("close");
+
+            Debug.WriteLine("close");
 
         }
+       
         public static void OnTimer()
         {
             checkPing();
@@ -24,7 +28,7 @@ namespace GameServer.script
             {
                 if (timeNow - s.lastPingTime > NetManager.pingInterval * 4)
                 {
-                    Console.WriteLine("ping close {0}", s.socket.RemoteEndPoint.ToString());
+                    Debug.WriteLine("ping close {0}", s.socket.RemoteEndPoint.ToString());
                     NetManager.Close(s);
                     return;
                 }

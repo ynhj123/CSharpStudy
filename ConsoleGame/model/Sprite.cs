@@ -20,10 +20,7 @@ namespace ConsoleGame.model
 
         public abstract bool Move(GameSence scence);
 
-        public void destory(GameSence scence)
-        {
-            scence.RemoveSprite(this);
-        }
+        
 
     }
 }

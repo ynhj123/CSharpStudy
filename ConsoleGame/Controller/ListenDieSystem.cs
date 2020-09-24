@@ -23,14 +23,14 @@ namespace ConsoleGame.Controller
                 gameSence.isWin = false;
 
             }
-            else if (gameSence.sprites.Where(sprite => sprite.GetType() == typeof(Player)).ToList().Count == 1)
+            /*else if (gameSence.sprites.Where(sprite => sprite.GetType() == typeof(Player)).ToList().Count == 1)
             {
 
                 gameSence.isStrat = false;
                 gameSence.isWin = true;
 
 
-            }
+            }*/
         }
     }
 }

@@ -7,11 +7,13 @@ namespace ConsoleGame.model
 {
     public class GameSence
     {
+        static GameSence sence;
         int x, y;
         int interval;
         char[,] map;
-        public bool isStrat = true;
+        public bool isStrat = false;
         public bool isWin = false;
+
 
         public List<Sprite> sprites = new List<Sprite>();
         public List<IExecuteSystem> systems = new List<IExecuteSystem>();
@@ -19,19 +21,30 @@ namespace ConsoleGame.model
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
 
-        public GameSence(int x, int y, int interval)
-        {
-            this.X = x;
-            this.Y = y;
 
-            this.interval = interval;
-            this.map = new char[x, y];
+        public static GameSence CreateGameSence(int x, int y, int interval)
+        {
+            if (sence == null)
+            {
+                sence = new GameSence();
+            }
+            sence.X = x;
+            sence.Y = y;
+
+            sence.interval = interval;
+            sence.map = new char[x, y];
             initMap(x, y);
+            return sence;
 
         }
-
-        private void initMap(int x, int y)
+        public static GameSence getGameScence()
         {
+            return sence;
+        }
+
+        private static void initMap(int x, int y)
+        {
+            char[,] map = sence.map;
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
@@ -58,6 +71,7 @@ namespace ConsoleGame.model
         {
             sprites.Remove(sprite);
         }
+
         public void AddSystem(IExecuteSystem system)
         {
             systems.Add(system);
@@ -73,6 +87,7 @@ namespace ConsoleGame.model
 
             while (isStrat)
             {
+                NetManagerEvent.Update();
                 foreach (IExecuteSystem system in systems)
                 {
                     system.Execute();
@@ -81,11 +96,7 @@ namespace ConsoleGame.model
                 for (int i = 0; i < sprites.Count; i++)
                 {
                     bool isMove = sprites[i].Move(this);
-                    if (isMove)
-                    {
-                        map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
-
-                    }
+                    map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
                 }
 
 
@@ -102,7 +113,7 @@ namespace ConsoleGame.model
                 Console.WriteLine("game over");
 
             }
-            NetManagerEvent.Close();
+          
 
 
         }

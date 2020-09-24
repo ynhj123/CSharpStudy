@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -8,7 +7,7 @@ namespace Collection.Applicaiton
 {
     class IOUtils
     {
-        public static bool SaveToFile_Binary(string filePath ,String content)
+        public static bool SaveToFile_Binary(string filePath, String content)
         {
             FileStream file = new FileStream(filePath, FileMode.Create);
             // 二进制 写入
@@ -41,7 +40,7 @@ namespace Collection.Applicaiton
             while (file.Position < file.Length)
             {
                 stringBuilder.Append(reader.ReadString());
-               
+
             }
             file.Close();
             return stringBuilder.ToString();

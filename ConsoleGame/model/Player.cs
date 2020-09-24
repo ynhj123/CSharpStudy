@@ -16,69 +16,53 @@ namespace ConsoleGame.model
             this.Id = System.Guid.NewGuid().ToString("N");
 
         }
+        int attchInterval = 5;
+
+        public int AttchInterval { get => attchInterval; set => attchInterval = value; }
 
         public void attach(GameSence scence)
         {
             Skill skill = new Skill(10, this.Position, this.Velocity.Veloctity);
             skill.Style = '*';
             scence.AddSprite(skill);
+
         }
 
-        public void beAttacked(Skill skill, GameSence scence)
-        {
-            this.player.Hp -= skill.Damage;
-            if (player.Hp <= 0)
-            {
-                this.destory(scence);
-            }
-        }
+      
 
         public override bool Move(GameSence scence)
         {
-            bool isMove = true;
+
+            MsgMove msgMove = new MsgMove();
             if (!IsMove)
             {
-                return isMove;
+                return IsMove;
             }
             else if (Veloctity.up == this.Velocity.Veloctity && this.Position.X > 1)
             {
-
                 this.Position.X--;
-                isMove = true;
-
             }
             else if (Veloctity.down == this.Velocity.Veloctity && this.Position.X < scence.X - 2)
             {
 
                 this.Position.X++;
-                isMove = true;
 
             }
             else if (Veloctity.left == this.Velocity.Veloctity && this.Position.Y > 1)
             {
-
                 this.Position.Y--;
-                isMove = true;
-
             }
             else if (Veloctity.right == this.Velocity.Veloctity && this.Position.Y < scence.Y - 2)
             {
-
                 this.Position.Y++;
-                isMove = true;
-
             }
-            else
-            {
-                isMove = true;
-            }
-            MsgMove msgMove = new MsgMove();
+            msgMove.spriteId = this.Id;
             msgMove.x = this.Position.X;
             msgMove.y = this.Position.Y;
-            msgMove.spriteId = this.Id;
             msgMove.veloctity = (int)this.Velocity.Veloctity;
             NetManagerEvent.Send(msgMove);
-            return isMove;
+            IsMove = false;
+            return IsMove;
         }
 
 

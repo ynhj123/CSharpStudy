@@ -4,7 +4,7 @@ namespace GameServer.script.logic
 {
     class PlayerManager
     {
-        static Dictionary<string, Player> players = new Dictionary<string, Player>();
+        public static Dictionary<string, Player> players = new Dictionary<string, Player>();
         public static bool IsOnline(string id)
         {
             return players.ContainsKey(id);
@@ -24,6 +24,14 @@ namespace GameServer.script.logic
         public static void Remove(string id)
         {
             players.Remove(id);
+        }
+        public static void Broadcast(MsgBase msg)
+        {
+            foreach (Player player in players.Values)
+            {
+
+                player.Send(msg);
+            }
         }
     }
 }

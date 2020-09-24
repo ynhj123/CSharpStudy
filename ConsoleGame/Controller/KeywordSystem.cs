@@ -16,11 +16,13 @@ namespace ConsoleGame.Controller
 
         public void Execute()
         {
+            ConsoleKey key = ConsoleKey.Z;
             while (Console.KeyAvailable)
             {
-                handleKey(Console.ReadKey(true).Key);
+                key = Console.ReadKey(true).Key;
 
             }
+            handleKey(key);
         }
 
         private void handleKey(ConsoleKey key)
@@ -47,12 +49,19 @@ namespace ConsoleGame.Controller
                     player.IsMove = false;
                     break;
                 case ConsoleKey.A:
-                    player.attach(sence);
+                    if (player.AttchInterval == 5)
+                    {
+                        MsgAttack msgAttack = new MsgAttack();
+                        msgAttack.playId = player.Id;
+                        NetManagerEvent.Send(msgAttack);
+                        player.AttchInterval = 1;
+                    ;
+                    }
                     break;
                 default:
                     break;
             }
-           
+
 
         }
 

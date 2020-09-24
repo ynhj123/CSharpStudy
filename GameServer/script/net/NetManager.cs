@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 
@@ -61,7 +62,7 @@ namespace GameServer.script.net
             }
             if (readBuff.remain <= 0)
             {
-                Console.WriteLine("Receive fail,naybe msg length > buff capacity");
+                Debug.WriteLine("Receive fail,naybe msg length > buff capacity");
                 Close(state);
                 return;
             }
@@ -72,7 +73,7 @@ namespace GameServer.script.net
             }
             catch (SocketException ex)
             {
-                Console.WriteLine("Socket close {0} reason {1}", clientfd.RemoteEndPoint.ToString(), ex.ToString());
+                Debug.WriteLine("Socket close {0} reason {1}", clientfd.RemoteEndPoint.ToString(), ex.ToString());
                 Close(state);
                 return;
             }
@@ -100,7 +101,7 @@ namespace GameServer.script.net
             string protoName = MsgBase.DecodeName(readBuff.bytes, readBuff.readIdx, out nameCount);
             if (protoName == "")
             {
-                Console.WriteLine("OnReceiveData msgDecodeName failed");
+                Debug.WriteLine("OnReceiveData msgDecodeName failed");
                 Close(state);
             }
             readBuff.readIdx += nameCount;
@@ -115,14 +116,14 @@ namespace GameServer.script.net
             //fire
             System.Reflection.MethodInfo methodInfo = typeof(MsgHandler).GetMethod(protoName);
             object[] ob = { state, msg };
-            Console.WriteLine("Receive {0}", protoName);
+            Debug.WriteLine("Receive {0}", protoName);
             if (methodInfo != null)
             {
                 methodInfo.Invoke(null, ob);
             }
             else
             {
-                Console.WriteLine("OnReceiveData invoke fail {0}", protoName);
+                Debug.WriteLine("OnReceiveData invoke fail {0}", protoName);
             }
             //广播
             /*foreach (var item in clients.Values)
@@ -149,7 +150,7 @@ namespace GameServer.script.net
             try
             {
                 Socket clientfd = listenfd.Accept();
-                Console.WriteLine("accept {0}", clientfd.RemoteEndPoint);
+                Debug.WriteLine("accept {0}", clientfd.RemoteEndPoint);
                 ClientState clientState = new ClientState();
                 clientState.socket = clientfd;
                 clientState.lastPingTime = NetManager.GetTimeStamp();
@@ -158,7 +159,7 @@ namespace GameServer.script.net
             catch (SocketException ex)
             {
 
-                Console.WriteLine("accept fail {0}", ex.ToString());
+                Debug.WriteLine("accept fail {0}", ex.ToString());
             }
         }
 
@@ -196,7 +197,7 @@ namespace GameServer.script.net
             }
             catch (SocketException ex)
             {
-                Console.WriteLine("Socket Close on BeginSend {0}", ex.ToString());
+                Debug.WriteLine("Socket Close on BeginSend {0}", ex.ToString());
                 throw;
             }
         }
@@ -227,7 +228,7 @@ namespace GameServer.script.net
             }
             catch (SocketException ex)
             {
-                Console.WriteLine("Socket Close on BeginSend {0}", ex.ToString());
+                Debug.WriteLine("Socket Close on BeginSend {0}", ex.ToString());
                 throw;
             }
         }

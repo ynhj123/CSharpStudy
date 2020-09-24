@@ -1,13 +1,9 @@
-﻿using System;
+﻿using ProtoBuf;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
-
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Runtime.Serialization.Formatters.Binary;
-using Google.Protobuf;
-using ProtoBuf;
 
 namespace OrderAndAccountBook
 {
@@ -127,7 +123,7 @@ namespace OrderAndAccountBook
         public bool WriteToFile()
         {
 
-           
+
             // 打开文件，获得文件流对象file
             FileStream fs = null;
             try
@@ -152,9 +148,9 @@ namespace OrderAndAccountBook
             {
                 if (fs != null)
                 {
-                   fs.Close();
+                    fs.Close();
                 }
-               
+
 
             }
             return true;
@@ -171,10 +167,10 @@ namespace OrderAndAccountBook
             {
                 fs = new FileStream("..\\test.txt", FileMode.Create);
 
-                dictionaries  = Serializer.Deserialize<Dictionary<int, OrderForm>>(fs, dict);
-               
-              
-  
+                dictionaries = Serializer.Deserialize<Dictionary<int, OrderForm>>(fs, dict);
+
+
+
                 //关闭此文件 
                 // 字符串s转为byte[]
                 ;     // byte[]写入文件

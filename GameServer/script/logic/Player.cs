@@ -9,6 +9,9 @@ namespace GameServer.script.logic
         public int x;
         public int y;
         public int z;
+        public int veloctity = 0;
+        public string style;
+        public int hp = 0;
         public PlayerData data;
         public Player(ClientState state)
         {

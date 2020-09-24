@@ -26,8 +26,8 @@ namespace ConsoleGame.Controller
                 {
                     if (players[i].Position.X == skills[j].Position.X && players[i].Position.Y == skills[j].Position.Y)
                     {
-
-                        players[i].destory(this.scence);
+                        SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
+                        spriteDestorySystem.sprites.Enqueue(players[i]);
 
                     }
                 }

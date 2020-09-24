@@ -1,5 +1,5 @@
 ﻿using GameServer.script.net;
-using System;
+using System.Diagnostics;
 
 namespace GameServer.script.logic
 {
@@ -10,7 +10,7 @@ namespace GameServer.script.logic
     {
         public static void MsgPing(ClientState c, MsgBase msg)
         {
-            Console.WriteLine("MsgPing");
+            Debug.WriteLine("MsgPing");
             c.lastPingTime = NetManager.GetTimeStamp();
             MsgPong msgPong = new MsgPong();
             NetManager.Send(c, msgPong);

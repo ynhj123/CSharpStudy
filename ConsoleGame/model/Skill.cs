@@ -1,4 +1,5 @@
 ﻿using ConsoleGame.Component;
+using ConsoleGame.Controller;
 
 namespace ConsoleGame.model
 {
@@ -13,6 +14,7 @@ namespace ConsoleGame.model
             this.Damage = damage;
             this.Position.X = position.X;
             this.Position.Y = position.Y;
+            this.Id = System.Guid.NewGuid().ToString("N");
             if (Veloctity.up == veloctity)
             {
                 this.Position.X -= 1;
@@ -39,42 +41,44 @@ namespace ConsoleGame.model
 
         public override bool Move(GameSence scence)
         {
-            bool isMove = false;
+
+            //越界销毁
+            if (this.Position.X < 1 || this.Position.X > scence.X - 2 || this.Position.Y < 1 || this.Position.Y > scence.Y - 2)
+            {
+                SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
+                spriteDestorySystem.sprites.Enqueue(this);
+                IsMove = false;
+                return IsMove;
+            }
             if (Veloctity.up == this.Velocity.Veloctity)
             {
 
                 this.Position.X--;
-                isMove = true;
+                IsMove = true;
             }
             else if (Veloctity.down == this.Velocity.Veloctity)
             {
 
                 this.Position.X++;
-                isMove = true;
+                IsMove = true;
 
             }
             else if (Veloctity.left == this.Velocity.Veloctity)
             {
 
                 this.Position.Y--;
-                isMove = true;
+                IsMove = true;
 
             }
             else if (Veloctity.right == this.Velocity.Veloctity)
             {
 
                 this.Position.Y++;
-                isMove = true;
+                IsMove = true;
 
             }
 
-            //越界销毁
-            if (this.Position.X < 1 || this.Position.X > scence.X - 2 || this.Position.Y < 1 || this.Position.Y > scence.Y - 2)
-            {
-                scence.RemoveSprite(this);
-                isMove = false;
-            }  
-            return isMove;
+            return IsMove;
 
         }
 
