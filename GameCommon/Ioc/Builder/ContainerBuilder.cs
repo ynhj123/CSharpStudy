@@ -1,4 +1,5 @@
 ﻿
+using GameCommon.Annotation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,18 @@ namespace GameCommon.Builder
         {
         
         }
+        public static void start()
+        {
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+
+            IEnumerable<Type> enumerable = types.Where(type => (type.GetCustomAttribute<Component>() != null));
+
+            List<Type> lists = enumerable.ToList();
+            foreach (var item in lists)
+            {
+                RegisterType(item);
+            }
+        }
         public static void RegisterType<T>(Object ob)
         {
             SingleInstanceDic.Add(typeof(T).Name, ob);
@@ -26,10 +39,8 @@ namespace GameCommon.Builder
 
         public static void RegisterType(Type type)
         {
+           
             object v = Activator.CreateInstance(type, true);
-            object v2 = Program.asm.CreateInstance(type.FullName);
-            TestController v1 = (TestController)v2;
-            v1.hello();
             SingleInstanceDic.Add(type.Name , v);
 
         }
