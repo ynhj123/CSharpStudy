@@ -1,5 +1,6 @@
 ﻿
-using ConsoleGame.utils.net;
+
+using GameServer.script.net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

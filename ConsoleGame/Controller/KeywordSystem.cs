@@ -55,7 +55,7 @@ namespace ConsoleGame.Controller
                         msgAttack.playId = player.Id;
                         NetManagerEvent.Send(msgAttack);
                         player.AttchInterval = 1;
-                    ;
+                        ;
                     }
                     break;
                 default:

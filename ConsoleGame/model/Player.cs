@@ -28,7 +28,7 @@ namespace ConsoleGame.model
 
         }
 
-      
+
 
         public override bool Move(GameSence scence)
         {

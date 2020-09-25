@@ -43,7 +43,7 @@ namespace ConsoleGame.model
         {
 
             //越界销毁
-            if (this.Position.X < 1 || this.Position.X > scence.X - 2 || this.Position.Y < 1 || this.Position.Y > scence.Y - 2)
+            if (this.Position.X <= 1 || this.Position.X >= scence.X - 2 || this.Position.Y <= 1 || this.Position.Y >= scence.Y - 2)
             {
                 SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
                 spriteDestorySystem.sprites.Enqueue(this);

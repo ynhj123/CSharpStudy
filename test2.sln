@@ -20,12 +20,19 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectOriented", "ObjectOriented\ObjectOriented.csproj", "{49706864-8454-4680-8B10-46CFA1826560}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\GameServer.csproj", "{4F23F2B1-7032-4839-A7C1-092B4FA1930F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76} = {8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleGame", "ConsoleGame\ConsoleGame.csproj", "{B093C125-4F6F-4319-B5D3-AD37CC2F5C8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundBattle", "RoundBattle\RoundBattle.csproj", "{AFFA3BEF-551C-44E4-B7F7-BD83545582B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seriallize", "Seriallize\Seriallize.csproj", "{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seriallize", "Seriallize\Seriallize.csproj", "{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegate", "Delegate\Delegate.csproj", "{8D069FD1-238C-4EC3-B888-6BEF2A803481}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCommon", "GameCommon\GameCommon.csproj", "{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +88,14 @@ Global
 		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D069FD1-238C-4EC3-B888-6BEF2A803481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D069FD1-238C-4EC3-B888-6BEF2A803481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D069FD1-238C-4EC3-B888-6BEF2A803481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D069FD1-238C-4EC3-B888-6BEF2A803481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

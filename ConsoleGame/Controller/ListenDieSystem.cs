@@ -1,5 +1,4 @@
 ﻿using ConsoleGame.model;
-using System.Linq;
 
 namespace ConsoleGame.Controller
 {

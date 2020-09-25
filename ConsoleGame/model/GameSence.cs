@@ -13,15 +13,18 @@ namespace ConsoleGame.model
         char[,] map;
         public bool isStrat = false;
         public bool isWin = false;
-
+        protected static int origRow;
+        protected static int origCol;
 
         public List<Sprite> sprites = new List<Sprite>();
         public List<IExecuteSystem> systems = new List<IExecuteSystem>();
 
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
+        private GameSence()
+        {
 
-
+        }
         public static GameSence CreateGameSence(int x, int y, int interval)
         {
             if (sence == null)
@@ -33,7 +36,7 @@ namespace ConsoleGame.model
 
             sence.interval = interval;
             sence.map = new char[x, y];
-            initMap(x, y);
+            InitMap(x, y);
             return sence;
 
         }
@@ -42,8 +45,14 @@ namespace ConsoleGame.model
             return sence;
         }
 
-        private static void initMap(int x, int y)
+        private static void InitMap(int x, int y)
         {
+            
+            Console.Clear();
+            Console.CursorVisible = false;
+
+            origRow = Console.CursorTop;
+            origCol = Console.CursorLeft;
             char[,] map = sence.map;
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -52,14 +61,27 @@ namespace ConsoleGame.model
                     //边框
                     if (i == 0 || i == x - 1 || j == 0 || j == y - 1)
                     {
-                        map[i, j] = '#';
+                        //map[i, j] = '#';
+                        WriteAt("#", i, j);
                     }
 
-                    else
+                    /*else
                     {
                         map[i, j] = ' ';
-                    }
+                        
+                    }*/
                 }
+            }
+        }
+        private static void ReflushMap()
+        {
+
+            List<Sprite> sprites = sence.sprites;
+            for (int i = 0; i < sprites.Count; i++)
+            {
+
+                //map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
+                WriteAt(" ", sprites[i].Position.X, sprites[i].Position.Y);
             }
         }
 
@@ -87,20 +109,22 @@ namespace ConsoleGame.model
 
             while (isStrat)
             {
+                ReflushMap();
                 NetManagerEvent.Update();
                 foreach (IExecuteSystem system in systems)
                 {
                     system.Execute();
                 }
-                initMap(this.X, this.Y);
+                /*initMap(this.X, this.Y);*/
                 for (int i = 0; i < sprites.Count; i++)
                 {
                     bool isMove = sprites[i].Move(this);
-                    map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
+                    //map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
+                    WriteAt(sprites[i].Style.ToString(), sprites[i].Position.X, sprites[i].Position.Y);
                 }
 
 
-                Print();
+                //Print();
                 Thread.Sleep(1000 / this.interval);
             }
             if (isWin)
@@ -113,9 +137,22 @@ namespace ConsoleGame.model
                 Console.WriteLine("game over");
 
             }
-          
 
 
+
+        }
+        protected static void WriteAt(string s, int x, int y)
+        {
+            try
+            {
+                Console.SetCursorPosition(origCol + y, origRow + x);
+                Console.Write(s);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void Print()

@@ -17,30 +17,47 @@ ECS，即 Entity-Component-System（实体-组件-系统） 的缩写，其模�
 ###### 登录场景
 username 新增 修改 
 跳转 房间场景
+###### 主控制场景
+开始游戏，退出游戏，设置 ，查看排行榜，查看个人信息，装备列表，商店 
+###### 个人信息
+
 ###### 房间场景
-房间列表 输入房间id加入房间 返回登陆场景
+房间列表 创建房间 输入房间id加入房间 返回控制场景
 
 玩家列表 主机 开始游戏，退出房间  剔除人员 ，升级房主
 ###### 游戏场景
 x*y 二位数组
 fps 每秒刷新次数
-sprite list add remove
-
+sprite list add remove 
+基于ecs实现
+###### 得分场景
+用户等分列表 奖励
 ####房间
 id sockets
 ###### 房间列表
 ###### 房间用户列表
 ####用户
+id
+username
+password
+score
+
+####角色
 hp
+mp
 position
 attatch
+resistance
 direction
 speed
+Stiff
 ####技能
 damage
 position
 direction
 speed
+range
+cd
 ####网络
 ping pong 
 move 
@@ -61,5 +78,12 @@ spirte发送移动后信息
 本地收到信息后再移动
 
 system 做成单列。方便在不同的地方对其进行操作 
+
+##改进
+地图随时间减少
+增加闪现和魔力爆发技能
+实现击退扣血功能
+统计杀敌数
+
 
 

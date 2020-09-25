@@ -99,8 +99,8 @@ namespace ConsoleGame
             MsgEnter msgEnter = (MsgEnter)msgBase;
             System.Collections.Generic.List<MsgEnter> players = msgEnter.players;
             GameSence gameSence = GameSence.getGameScence();
-          
-            
+
+
             //如果是第一次加入 开始游戏并获取列表
             //如果是别人加入，则新增一个player
             if (gameSence.isStrat)
@@ -110,12 +110,13 @@ namespace ConsoleGame
                 gameSence.AddSprite(player);
             }
             else
-            {            
+            {
                 foreach (MsgEnter enter in players)
                 {
-                    if(enter.playId != msgEnter.playId) { 
+                    if (enter.playId != msgEnter.playId)
+                    {
                         Player player = new Player(100, enter.x, enter.y, Convert.ToChar(enter.style));
-                   
+
                         player.Id = enter.playId;
                         gameSence.AddSprite(player);
                     }

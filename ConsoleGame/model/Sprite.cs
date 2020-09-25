@@ -20,7 +20,7 @@ namespace ConsoleGame.model
 
         public abstract bool Move(GameSence scence);
 
-        
+
 
     }
 }
