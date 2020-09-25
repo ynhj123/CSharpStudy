@@ -30,9 +30,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundBattle", "RoundBattle\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seriallize", "Seriallize\Seriallize.csproj", "{5F53B6C2-D292-4FB9-939E-9CB23B1B056D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegate", "Delegate\Delegate.csproj", "{8D069FD1-238C-4EC3-B888-6BEF2A803481}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delegate", "Delegate\Delegate.csproj", "{8D069FD1-238C-4EC3-B888-6BEF2A803481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCommon", "GameCommon\GameCommon.csproj", "{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCommon", "GameCommon\GameCommon.csproj", "{8CEEE6A5-C965-4FB8-8065-E54EF5DD2F76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
