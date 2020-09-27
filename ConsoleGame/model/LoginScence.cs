@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConsoleGame.model
+﻿namespace ConsoleGame.model
 {
     class LoginScence
     {
         static LoginScence scence;
-        private LoginScence(){}
+        private LoginScence() { }
 
         public static LoginScence GetLoinScence()
         {

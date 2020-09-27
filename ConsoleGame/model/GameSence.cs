@@ -47,7 +47,7 @@ namespace ConsoleGame.model
 
         private static void InitMap(int x, int y)
         {
-            
+
             Console.Clear();
             Console.CursorVisible = false;
 
