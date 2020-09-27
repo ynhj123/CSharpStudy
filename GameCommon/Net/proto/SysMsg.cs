@@ -20,6 +20,10 @@ public class LoginMsg : MsgBase
     {
         protoName = "MsgLogin";
     }
+    public string username;
+    public string password;
+    public bool isSuccess;
+    public string result;
 }
 
 public class RegistryMsg : MsgBase
@@ -28,6 +32,10 @@ public class RegistryMsg : MsgBase
     {
         protoName = "MsgRegistry";
     }
+    public string username;
+    public string password;
+    public bool isSuccess;
+    public string result;
 }
 
 public class MsgKick : MsgBase

@@ -2,7 +2,7 @@
 
 namespace GameCommon.Ioc.Annotation
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class Component : Attribute
     {
     }

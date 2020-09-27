@@ -2,9 +2,11 @@
 using ConsoleGame.Controller;
 using ConsoleGame.model;
 using ConsoleGame.Service;
+using GameCommon.Builder;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ConsoleGame
@@ -12,44 +14,48 @@ namespace ConsoleGame
     class Program
     {
         static Random random = new Random();
+        static User user;
         static void Main(string[] args)
         {
-            InitNet();
-            int x = random.Next(2, 20);
-            int y = random.Next(2, 70);
-            Player player = new Player(100, x, y, 'x');
+            ContainerBuilder.Start(Assembly.GetExecutingAssembly().GetTypes());
+            LoginScence loginScence = ContainerBuilder.Resolve<LoginScence>();
+            loginScence.handle();
+            /* InitNet();
+             int x = random.Next(2, 20);
+             int y = random.Next(2, 70);
+             Player player = new Player(100, x, y, 'x');
 
 
-            GameSence gameSence = GameSence.CreateGameSence(25, 80, 15);
-            ListenDieSystem listenDieSystem = new ListenDieSystem(player, gameSence);
-            KeywordSystem keywordSystem = new KeywordSystem(player, gameSence);
-            CollisionSystem collisionSystem = new CollisionSystem(gameSence);
-            AutoAttachIntervalSystem autoAttachSystem = new AutoAttachIntervalSystem(gameSence);
-            SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
+             GameSence gameSence = GameSence.CreateGameSence(25, 80, 15);
+             ListenDieSystem listenDieSystem = new ListenDieSystem(player, gameSence);
+             KeywordSystem keywordSystem = new KeywordSystem(player, gameSence);
+             CollisionSystem collisionSystem = new CollisionSystem(gameSence);
+             AutoAttachIntervalSystem autoAttachSystem = new AutoAttachIntervalSystem(gameSence);
+             SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
 
-            gameSence.AddSystem(listenDieSystem);
-            gameSence.AddSystem(keywordSystem);
-            gameSence.AddSystem(collisionSystem);
-            gameSence.AddSystem(autoAttachSystem);
-            gameSence.AddSystem(spriteDestorySystem);
-            gameSence.AddSprite(player);
+             gameSence.AddSystem(listenDieSystem);
+             gameSence.AddSystem(keywordSystem);
+             gameSence.AddSystem(collisionSystem);
+             gameSence.AddSystem(autoAttachSystem);
+             gameSence.AddSystem(spriteDestorySystem);
+             gameSence.AddSprite(player);
 
 
 
-            MsgEnter msgEnter = new MsgEnter();
-            msgEnter.playId = player.Id;
-            msgEnter.x = player.Position.X;
-            msgEnter.y = player.Position.Y;
-            msgEnter.veloctity = (int)player.Velocity.Veloctity;
+             MsgEnter msgEnter = new MsgEnter();
+             msgEnter.playId = player.Id;
+             msgEnter.x = player.Position.X;
+             msgEnter.y = player.Position.Y;
+             msgEnter.veloctity = (int)player.Velocity.Veloctity;
 
-            msgEnter.style = player.Style.ToString();
+             msgEnter.style = player.Style.ToString();
 
-            NetManagerEvent.Send(msgEnter);
-            while (!gameSence.isStrat)
-            {
-                NetManagerEvent.Update();
-            }
-
+             NetManagerEvent.Send(msgEnter);
+             while (!gameSence.isStrat)
+             {
+                 NetManagerEvent.Update();
+             }
+ */
             Console.ReadKey();
         }
         public static void InitNet()

@@ -9,7 +9,7 @@ namespace GameCommon
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            ContainerBuilder.start();
+            ContainerBuilder.Start();
             TestController testController = ContainerBuilder.Resolve<TestController>();
             testController.Hello();
 
