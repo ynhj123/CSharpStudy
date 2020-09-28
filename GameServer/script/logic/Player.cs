@@ -2,7 +2,7 @@
 
 namespace GameServer.script.logic
 {
-    class Player
+    public class Player
     {
         public string id = "";
         public ClientState state;
@@ -12,6 +12,7 @@ namespace GameServer.script.logic
         public int veloctity = 0;
         public string style;
         public int hp = 0;
+        public int roomId;
         public PlayerData data;
         public Player(ClientState state)
         {

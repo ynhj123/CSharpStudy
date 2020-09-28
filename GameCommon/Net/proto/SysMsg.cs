@@ -1,4 +1,6 @@
-﻿public class MsgPing : MsgBase
+﻿using System.Net;
+
+public class MsgPing : MsgBase
 {
     public MsgPing()
     {
@@ -22,7 +24,7 @@ public class MsgLogin : MsgBase
     }
     public string username;
     public string password;
-    public bool isSuccess;
+    public HttpStatusCode code;
     public string result;
 }
 
@@ -30,11 +32,11 @@ public class MsgRegistry : MsgBase
 {
     public MsgRegistry()
     {
-        protoName = "MsgRegistry";                 
+        protoName = "MsgRegistry";
     }
     public string username;
     public string password;
-    public bool isSuccess;
+    public HttpStatusCode code;
     public string result;
 }
 

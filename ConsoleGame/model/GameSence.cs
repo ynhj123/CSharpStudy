@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace ConsoleGame.model
 {
-    public class GameSence
+    public class GameSence : Scence
     {
         static GameSence sence;
         int x, y;

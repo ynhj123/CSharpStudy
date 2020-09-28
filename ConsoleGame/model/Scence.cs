@@ -1,6 +1,7 @@
 ﻿namespace ConsoleGame.model
 {
-    public class Scence
+    public interface Scence
     {
+        public void Handle();
     }
 }

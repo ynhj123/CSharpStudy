@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using GameServer.script.logic;
+using System.Net.Sockets;
 
 namespace GameServer.script.net
 {
@@ -8,6 +9,7 @@ namespace GameServer.script.net
         public ByteArray readBuff = new ByteArray();
 
         public long lastPingTime = 0;
+        public Player player;
 
     }
 }

@@ -3,62 +3,28 @@ using ConsoleGame.Controller;
 using ConsoleGame.model;
 using ConsoleGame.Service;
 using GameCommon.Builder;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleGame
 {
     class Program
     {
-        static Random random = new Random();
-        static User user;
+
+
         static void Main(string[] args)
         {
             InitNet();
             ContainerBuilder.Start(Assembly.GetExecutingAssembly().GetTypes());
-            LoginScence loginScence = ContainerBuilder.Resolve<LoginScence>();
-            loginScence.handle();
-            /* 
-             int x = random.Next(2, 20);
-             int y = random.Next(2, 70);
-             Player player = new Player(100, x, y, 'x');
+            ScenceController scenceController = new ScenceController();
+            scenceController.InitScence();
+            scenceController.Handle();
 
-
-             GameSence gameSence = GameSence.CreateGameSence(25, 80, 15);
-             ListenDieSystem listenDieSystem = new ListenDieSystem(player, gameSence);
-             KeywordSystem keywordSystem = new KeywordSystem(player, gameSence);
-             CollisionSystem collisionSystem = new CollisionSystem(gameSence);
-             AutoAttachIntervalSystem autoAttachSystem = new AutoAttachIntervalSystem(gameSence);
-             SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
-
-             gameSence.AddSystem(listenDieSystem);
-             gameSence.AddSystem(keywordSystem);
-             gameSence.AddSystem(collisionSystem);
-             gameSence.AddSystem(autoAttachSystem);
-             gameSence.AddSystem(spriteDestorySystem);
-             gameSence.AddSprite(player);
-
-
-
-             MsgEnter msgEnter = new MsgEnter();
-             msgEnter.playId = player.Id;
-             msgEnter.x = player.Position.X;
-             msgEnter.y = player.Position.Y;
-             msgEnter.veloctity = (int)player.Velocity.Veloctity;
-
-             msgEnter.style = player.Style.ToString();
-
-             NetManagerEvent.Send(msgEnter);
-             while (!gameSence.isStrat)
-             {
-                 NetManagerEvent.Update();
-             }
- */
-            Console.ReadKey();
         }
         public static void InitNet()
         {
@@ -74,7 +40,19 @@ namespace ConsoleGame
 
         private static void OnLogin(MsgBase msgBase)
         {
-            throw new NotImplementedException();
+            MsgLogin msgLogin = (MsgLogin)msgBase;
+            LoginScence loginScence = ContainerBuilder.Resolve<LoginScence>();
+            if (msgLogin.code != HttpStatusCode.OK)
+            {
+                Console.WriteLine(msgLogin.result);
+            }
+            else
+            {
+                User user = JsonConvert.DeserializeObject<User>(msgLogin.result);
+                ScenceController.user = user;
+                ScenceController.curScence = ScenceController.scenceDict["index"];
+            }
+            loginScence.IsLoignCallBack = true;
         }
 
         private static void OnRegistry(MsgBase msgBase)
@@ -140,7 +118,6 @@ namespace ConsoleGame
                     if (enter.playId != msgEnter.playId)
                     {
                         Player player = new Player(100, enter.x, enter.y, Convert.ToChar(enter.style));
-
                         player.Id = enter.playId;
                         gameSence.AddSprite(player);
                     }

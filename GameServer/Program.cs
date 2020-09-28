@@ -8,6 +8,7 @@ namespace GameServer
         static void Main(string[] args)
         {
             UserManager.Load();
+            RoomManager.InitRoom();
             NetManager.StartLoop(8888);
         }
     }

@@ -13,7 +13,7 @@ namespace ConsoleGame.model
             this.Velocity.Veloctity = Veloctity.right;
             this.Style = style;
             this.IsMove = false;
-            this.Id = System.Guid.NewGuid().ToString("N");
+
 
         }
         int attchInterval = 5;

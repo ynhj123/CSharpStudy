@@ -2,7 +2,9 @@
 using GameServer.script.db;
 using GameServer.script.net;
 using GameServer.script.wrapper;
+using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net;
 
 namespace GameServer.script.logic
 {
@@ -27,7 +29,7 @@ namespace GameServer.script.logic
             bool checkOut = UserManager.Check(user, out msgResgistory.result);
             if (!checkOut)
             {
-                msgResgistory.isSuccess = false;
+                msgResgistory.code = HttpStatusCode.InternalServerError;
                 NetManager.Send(c, msgResgistory);
             }
             else
@@ -35,7 +37,7 @@ namespace GameServer.script.logic
                 user.Score = 0;
                 user.Userid = UUIDUtils.GetUUID();
                 UserManager.Add(user);
-                msgResgistory.isSuccess = true;
+                msgResgistory.code = HttpStatusCode.OK;
                 msgResgistory.result = "注册成功";
                 NetManager.Send(c, msgResgistory);
             }
@@ -44,9 +46,21 @@ namespace GameServer.script.logic
         public static void MsgLogin(ClientState c, MsgBase msg)
         {
             Debug.WriteLine("MsgLogin");
-            c.lastPingTime = NetManager.GetTimeStamp();
-            MsgPong msgPong = new MsgPong();
-            NetManager.Send(c, msgPong);
+            MsgLogin msgLogin = (MsgLogin)msg;
+            User user = UserManager.Login(msgLogin.username, msgLogin.password, out msgLogin.result);
+            if (user == null)
+            {
+                msgLogin.code = HttpStatusCode.NotFound;
+            }
+            else
+            {
+                msgLogin.code = HttpStatusCode.OK;
+                Player player = UserWrapper.ToPlayer(user, c);
+                c.player = player;
+                PlayerManager.AddPlayer(player);
+                msgLogin.result = JsonConvert.SerializeObject(user);
+            }
+            NetManager.Send(c, msgLogin);
         }
     }
 }

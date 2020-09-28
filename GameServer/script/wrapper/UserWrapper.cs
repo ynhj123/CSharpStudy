@@ -11,5 +11,12 @@ namespace GameServer.script.wrapper
             user.Username = msg.username;
             return user;
         }
+
+        internal static Player ToPlayer(User user, net.ClientState c)
+        {
+            Player player = new Player(c);
+            player.id = user.Userid;
+            return player;
+        }
     }
 }

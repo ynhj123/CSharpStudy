@@ -1,6 +1,6 @@
 ﻿namespace GameServer.script.logic
 {
-    class PlayerData
+    public class PlayerData
     {
         //金币
         public int coin = 0;

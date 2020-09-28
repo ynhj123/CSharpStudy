@@ -1,4 +1,5 @@
-﻿using ConsoleGame.utils.Time;
+﻿using ConsoleGame.Controller;
+using ConsoleGame.utils.Time;
 using System;
 using System.Threading;
 
@@ -7,27 +8,28 @@ namespace ConsoleGame.model
     [GameCommon.Ioc.Annotation.Component]
     class LoginScence : Scence
     {
-        private bool isLogin = false;
+
         private bool isResgistoryCallBack;
+        private bool isLoignCallBack;
 
-        public bool IsLogin { get => isLogin; set => isLogin = value; }
+
         public bool IsResgistoryCallBack { get => isResgistoryCallBack; set => isResgistoryCallBack = value; }
+        public bool IsLoignCallBack { get => isLoignCallBack; set => isLoignCallBack = value; }
 
-        public void handle()
+        public void Handle()
         {
-            while (!IsLogin)
+            Console.Clear();
+            Console.WriteLine(@"请选择
+1登录
+2注册");
+            char keyChar = Console.ReadKey().KeyChar;
+            if ('1' == keyChar)
             {
-                Console.Clear();
-                Console.WriteLine("请选择1登录，2注册");
-                char keyChar = Console.ReadKey().KeyChar;
-                if ('1' == keyChar)
-                {
-                    HandleLogin();
-                }
-                else if ('2' == keyChar)
-                {
-                    HandleResgistory();
-                }
+                HandleLogin();
+            }
+            else if ('2' == keyChar)
+            {
+                HandleResgistory();
             }
 
         }
@@ -69,37 +71,81 @@ namespace ConsoleGame.model
         public void HandleLogin()
         {
             Console.Clear();
+            bool isCheck = false;
             Console.WriteLine("用户请输入用户名密码登录！");
-            Console.WriteLine("请输入用户名");
-            string username = Console.ReadLine();
-            Console.WriteLine("请输入密码");
-            string password = InputPassword();
-            IsLogin = true;
-            /*NetManagerEvent.Send()*/
+            while (!isCheck)
+            {
+                Console.WriteLine("请输入用户名");
+                string username = Console.ReadLine();
+                Console.WriteLine("请输入密码");
+                string password = InputPassword();
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    Console.WriteLine("用户名或密码不能为空");
+                }
+                else
+                {
+                    isCheck = true;
+                    MsgLogin loginMsg = new MsgLogin();
+                    loginMsg.username = username;
+                    loginMsg.password = password;
+                    NetManagerEvent.Send(loginMsg);
+                    isLoignCallBack = false;
+                    TimeEvent.Handle(1, 5, ref isLoignCallBack, () =>
+                    {
+                        NetManagerEvent.Update();
+                    }, () =>
+                    {
+                        Console.WriteLine("登录超时，请重试！");
+                    });
+                    if (ScenceController.user == null)
+                    {
+                        Thread.Sleep(2000);
+                    }
+
+                }
+            }
+
+
+
 
         }
         public void HandleResgistory()
         {
             Console.Clear();
+            bool isCheck = false;
+            Console.WriteLine("账户注册");
 
-            Console.WriteLine("请输入用户名");
-            string username = Console.ReadLine();
-            Console.WriteLine("请输入密码");
-            string password = InputPassword();
+            while (!isCheck)
+            {
+                Console.WriteLine("请输入用户名");
+                string username = Console.ReadLine();
+                Console.WriteLine("请输入密码");
+                string password = InputPassword();
 
-            MsgRegistry registryMsg = new MsgRegistry();
-            registryMsg.username = username;
-            registryMsg.password = password;
-            NetManagerEvent.Send(registryMsg);
-            isResgistoryCallBack = false;
-            TimeEvent.Handle(1, 5, ref isResgistoryCallBack, () =>
-              {
-                  NetManagerEvent.Update();
-              }, () =>
-             {
-                 Console.WriteLine("注册超时，请重试！");
-             });
-            Thread.Sleep(2000);
+
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    Console.WriteLine("用户名或密码不能为空");
+                }
+                else
+                {
+                    isCheck = true;
+                    MsgRegistry registryMsg = new MsgRegistry();
+                    registryMsg.username = username;
+                    registryMsg.password = password;
+                    NetManagerEvent.Send(registryMsg);
+                    isResgistoryCallBack = false;
+                    TimeEvent.Handle(1, 5, ref isResgistoryCallBack, () =>
+                    {
+                        NetManagerEvent.Update();
+                    }, () =>
+                    {
+                        Console.WriteLine("注册超时，请重试！");
+                    });
+                    Thread.Sleep(2000);
+                }
+            }
 
         }
 
