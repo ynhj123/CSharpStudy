@@ -10,14 +10,16 @@ namespace ConsoleGame.model
         private int playerCount;//当前玩家数
         private int maxCount; //最大玩家数
         private int status; // 0  待开始 1进行中
-        private List<Player> players = new List<Player>();
+        private Dictionary<string, bool> userStatus = new Dictionary<string, bool>();
+        private List<User> users = new List<User>();
 
         public int RoomId { get => roomId; set => roomId = value; }
         public int PlayerCount { get => playerCount; set => playerCount = value; }
         public int Status { get => status; set => status = value; }
         public string OwnId { get => ownId; set => ownId = value; }
         public int MaxCount { get => maxCount; set => maxCount = value; }
-        public List<Player> Players { get => players; set => players = value; }
+        public Dictionary<string, bool> UserStatus { get => userStatus; set => userStatus = value; }
+        public List<User> Users { get => users; set => users = value; }
 
         public void Print()
         {
