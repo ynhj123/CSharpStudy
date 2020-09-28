@@ -1,4 +1,5 @@
-﻿using GameServer.script.net;
+﻿using GameServer.script.db;
+using GameServer.script.net;
 
 namespace GameServer
 {
@@ -6,7 +7,7 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
-
+            UserManager.Load();
             NetManager.StartLoop(8888);
         }
     }

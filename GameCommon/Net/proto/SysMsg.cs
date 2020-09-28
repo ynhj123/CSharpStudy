@@ -14,9 +14,9 @@ public class MsgPong : MsgBase
     }
 
 }
-public class LoginMsg : MsgBase
+public class MsgLogin : MsgBase
 {
-    public LoginMsg()
+    public MsgLogin()
     {
         protoName = "MsgLogin";
     }
@@ -26,11 +26,11 @@ public class LoginMsg : MsgBase
     public string result;
 }
 
-public class RegistryMsg : MsgBase
+public class MsgRegistry : MsgBase
 {
-    public RegistryMsg()
+    public MsgRegistry()
     {
-        protoName = "MsgRegistry";
+        protoName = "MsgRegistry";                 
     }
     public string username;
     public string password;

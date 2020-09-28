@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleGame
@@ -17,10 +18,11 @@ namespace ConsoleGame
         static User user;
         static void Main(string[] args)
         {
+            InitNet();
             ContainerBuilder.Start(Assembly.GetExecutingAssembly().GetTypes());
             LoginScence loginScence = ContainerBuilder.Resolve<LoginScence>();
             loginScence.handle();
-            /* InitNet();
+            /* 
              int x = random.Next(2, 20);
              int y = random.Next(2, 70);
              Player player = new Player(100, x, y, 'x');
@@ -64,7 +66,23 @@ namespace ConsoleGame
             NetManagerEvent.AddListener("MsgMove", OnMove);
             NetManagerEvent.AddListener("MsgLeave", OnLeave);
             NetManagerEvent.AddListener("MsgAttack", OnAttack);
+            NetManagerEvent.AddListener("MsgRegistry", OnRegistry);
+            NetManagerEvent.AddListener("MsgLogin", OnLogin);
             NetManagerEvent.Connect("192.168.1.178", 8888);
+
+        }
+
+        private static void OnLogin(MsgBase msgBase)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void OnRegistry(MsgBase msgBase)
+        {
+            MsgRegistry msgRegistry = (MsgRegistry)msgBase;
+            LoginScence loginScence = ContainerBuilder.Resolve<LoginScence>();
+            Console.WriteLine(msgRegistry.result);
+            loginScence.IsResgistoryCallBack = true;
 
         }
 

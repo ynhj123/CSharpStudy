@@ -1,6 +1,6 @@
-﻿namespace ConsoleGame.model
+﻿namespace GameServer.script.logic
 {
-    class User
+    public class User
     {
         private string username;
         private string password;

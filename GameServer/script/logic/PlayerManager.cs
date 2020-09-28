@@ -29,7 +29,6 @@ namespace GameServer.script.logic
         {
             foreach (Player player in players.Values)
             {
-
                 player.Send(msg);
             }
         }

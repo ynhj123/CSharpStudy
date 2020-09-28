@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameCommon.Utils
 {
-    class IOUtils
+    public class IOUtils
     {
         public static bool SaveToFile_Binary(string filePath, String content)
         {

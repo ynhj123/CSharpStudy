@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConsoleGame.utils.Time;
+using System;
+using System.Threading;
 
 namespace ConsoleGame.model
 {
@@ -6,9 +8,14 @@ namespace ConsoleGame.model
     class LoginScence : Scence
     {
         private bool isLogin = false;
+        private bool isResgistoryCallBack;
+
+        public bool IsLogin { get => isLogin; set => isLogin = value; }
+        public bool IsResgistoryCallBack { get => isResgistoryCallBack; set => isResgistoryCallBack = value; }
+
         public void handle()
         {
-            while (!isLogin)
+            while (!IsLogin)
             {
                 Console.Clear();
                 Console.WriteLine("请选择1登录，2注册");
@@ -67,7 +74,7 @@ namespace ConsoleGame.model
             string username = Console.ReadLine();
             Console.WriteLine("请输入密码");
             string password = InputPassword();
-            isLogin = true;
+            IsLogin = true;
             /*NetManagerEvent.Send()*/
 
         }
@@ -79,8 +86,20 @@ namespace ConsoleGame.model
             string username = Console.ReadLine();
             Console.WriteLine("请输入密码");
             string password = InputPassword();
-            /*NetManagerEvent.Send()*/
 
+            MsgRegistry registryMsg = new MsgRegistry();
+            registryMsg.username = username;
+            registryMsg.password = password;
+            NetManagerEvent.Send(registryMsg);
+            isResgistoryCallBack = false;
+            TimeEvent.Handle(1, 5, ref isResgistoryCallBack, () =>
+              {
+                  NetManagerEvent.Update();
+              }, () =>
+             {
+                 Console.WriteLine("注册超时，请重试！");
+             });
+            Thread.Sleep(2000);
 
         }
 
