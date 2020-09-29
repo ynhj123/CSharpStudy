@@ -27,6 +27,8 @@ namespace ConsoleGame.model
             if ('1' == keyChar)
             {
                 ScenceController.curScence = ScenceController.scenceDict["room"];
+                MsgListRoom msgListRoom = new MsgListRoom();
+                NetManagerEvent.Send(msgListRoom);
             }
             else if ('2' == keyChar)
             {

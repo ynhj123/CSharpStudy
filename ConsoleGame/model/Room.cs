@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConsoleGame.model
 {
-    class Room
+    public class Room
     {
         private int roomId;
         private string ownId; //房主id

@@ -1,6 +1,4 @@
-﻿using ConsoleGame.Component;
-
-namespace ConsoleGame.model
+﻿namespace ConsoleGame.model
 {
     public class User
     {
@@ -12,6 +10,7 @@ namespace ConsoleGame.model
         int attachInterval = 3;
         int mp;
         int resistance;
+
 
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }

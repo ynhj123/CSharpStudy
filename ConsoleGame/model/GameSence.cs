@@ -1,13 +1,15 @@
 ﻿using ConsoleGame.Controller;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace ConsoleGame.model
 {
+    [GameCommon.Ioc.Annotation.Component]
     public class GameSence : Scence
     {
-        static GameSence sence;
+
         int x, y;
         int interval;
         char[,] map;
@@ -21,31 +23,38 @@ namespace ConsoleGame.model
 
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
-        private GameSence()
-        {
 
+        public void Load()
+        {
+            this.Load(25, 80, 15);
+            Player player = sprites.Where(sprite => sprite.GetType() == typeof(Player)).Select(sprites => (Player)sprites).Where(player => player.Id == ScenceController.user.Userid).FirstOrDefault();
+            ListenDieSystem listenDieSystem = new ListenDieSystem(player, this);
+            KeywordSystem keywordSystem = new KeywordSystem(player, this);
+            CollisionSystem collisionSystem = new CollisionSystem(this);
+            AutoAttachIntervalSystem autoAttachSystem = new AutoAttachIntervalSystem(this);
+            SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
+
+            this.AddSystem(listenDieSystem);
+            this.AddSystem(keywordSystem);
+            this.AddSystem(collisionSystem);
+            this.AddSystem(autoAttachSystem);
+            this.AddSystem(spriteDestorySystem);
         }
-        public static GameSence CreateGameSence(int x, int y, int interval)
+        private void Load(int x, int y, int interval)
         {
-            if (sence == null)
-            {
-                sence = new GameSence();
-            }
-            sence.X = x;
-            sence.Y = y;
 
-            sence.interval = interval;
-            sence.map = new char[x, y];
+            this.X = x;
+            this.Y = y;
+
+            this.interval = interval;
+            this.map = new char[x, y];
             InitMap(x, y);
-            return sence;
 
         }
-        public static GameSence getGameScence()
-        {
-            return sence;
-        }
 
-        private static void InitMap(int x, int y)
+
+
+        private void InitMap(int x, int y)
         {
 
             Console.Clear();
@@ -53,7 +62,7 @@ namespace ConsoleGame.model
 
             origRow = Console.CursorTop;
             origCol = Console.CursorLeft;
-            char[,] map = sence.map;
+            char[,] map = this.map;
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
@@ -73,10 +82,10 @@ namespace ConsoleGame.model
                 }
             }
         }
-        private static void ReflushMap()
+        private void ReflushMap()
         {
 
-            List<Sprite> sprites = sence.sprites;
+            List<Sprite> sprites = this.sprites;
             for (int i = 0; i < sprites.Count; i++)
             {
 
@@ -120,7 +129,15 @@ namespace ConsoleGame.model
                 {
                     bool isMove = sprites[i].Move(this);
                     //map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
-                    WriteAt(sprites[i].Style.ToString(), sprites[i].Position.X, sprites[i].Position.Y);
+                    if(sprites[i] is Player)
+                    {
+                        Player Player = (Player)sprites[i];
+                        WriteAt(Player.Style.ToString(), sprites[i].Position.X, sprites[i].Position.Y, Player.Color);
+                    }
+                    else
+                    {
+                        WriteAt(sprites[i].Style.ToString(), sprites[i].Position.X, sprites[i].Position.Y);
+                    }
                 }
 
 
@@ -141,12 +158,14 @@ namespace ConsoleGame.model
 
 
         }
-        protected static void WriteAt(string s, int x, int y)
+        protected static void WriteAt(string s, int x, int y, ConsoleColor color = ConsoleColor.White)
         {
             try
             {
+                Console.ForegroundColor = color;
                 Console.SetCursorPosition(origCol + y, origRow + x);
                 Console.Write(s);
+                Console.ResetColor();
             }
             catch (ArgumentOutOfRangeException e)
             {

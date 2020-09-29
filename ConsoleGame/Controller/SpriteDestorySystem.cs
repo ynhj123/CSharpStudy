@@ -1,4 +1,5 @@
 ﻿using ConsoleGame.model;
+using GameCommon.Builder;
 using System.Collections.Generic;
 
 namespace ConsoleGame.Controller
@@ -24,7 +25,7 @@ namespace ConsoleGame.Controller
 
         public void Execute()
         {
-            GameSence gameSence = GameSence.getGameScence();
+            GameSence gameSence = ContainerBuilder.Resolve<GameSence>();
             while (sprites.Count > 0)
             {
                 Sprite sprite = sprites.Dequeue();

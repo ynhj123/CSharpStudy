@@ -22,35 +22,21 @@ namespace ConsoleGame.Controller
 
             scenceDict.Add("login", ContainerBuilder.Resolve<LoginScence>());
             scenceDict.Add("index", ContainerBuilder.Resolve<MenuScence>());
-            scenceDict.Add("battle", InitGameScence());
+            scenceDict.Add("battle", ContainerBuilder.Resolve<GameSence>());
             scenceDict.Add("room", ContainerBuilder.Resolve<RoomScence>());
+            scenceDict.Add("roomDetail", ContainerBuilder.Resolve<RoomDetailScence>());
             scenceDict.Add("user", ContainerBuilder.Resolve<UserScence>());
         }
 
-        private Scence InitGameScence()
+        /*private Scence InitGameScence()
         {
-            int x = random.Next(2, 20);
-            int y = random.Next(2, 70);
-            Player player = new Player(100, x, y, 'x');
-
-
-            GameSence gameSence = GameSence.CreateGameSence(25, 80, 15);
-            ListenDieSystem listenDieSystem = new ListenDieSystem(player, gameSence);
-            KeywordSystem keywordSystem = new KeywordSystem(player, gameSence);
-            CollisionSystem collisionSystem = new CollisionSystem(gameSence);
-            AutoAttachIntervalSystem autoAttachSystem = new AutoAttachIntervalSystem(gameSence);
-            SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
-
-            gameSence.AddSystem(listenDieSystem);
-            gameSence.AddSystem(keywordSystem);
-            gameSence.AddSystem(collisionSystem);
-            gameSence.AddSystem(autoAttachSystem);
-            gameSence.AddSystem(spriteDestorySystem);
-            gameSence.AddSprite(player);
+            
+            
+            
 
 
 
-            /*MsgEnter msgEnter = new MsgEnter();
+            *//*MsgEnter msgEnter = new MsgEnter();
             msgEnter.playId = player.Id;
             msgEnter.x = player.Position.X;
             msgEnter.y = player.Position.Y;
@@ -62,13 +48,13 @@ namespace ConsoleGame.Controller
             while (!gameSence.isStrat)
             {
                 NetManagerEvent.Update();
-            }*/
+            }*//*
             return gameSence;
-        }
+        }*/
 
         public void Handle()
         {
-            curScence = scenceDict["index"];
+            curScence = scenceDict["login"];
             while (!isLeavel)
             {
                 curScence.Handle();

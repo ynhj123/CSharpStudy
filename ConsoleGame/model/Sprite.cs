@@ -1,10 +1,12 @@
 ﻿using ConsoleGame.Component;
+using System;
 
 namespace ConsoleGame.model
 {
     public abstract class Sprite
     {
         private char style;
+        private ConsoleColor color;
         bool isMove;
         private string id;
 
@@ -17,6 +19,7 @@ namespace ConsoleGame.model
         public char Style { get => style; set => style = value; }
         public bool IsMove { get => isMove; set => isMove = value; }
         public string Id { get => id; set => id = value; }
+        public ConsoleColor Color { get => color; set => color = value; }
 
         public abstract bool Move(GameSence scence);
 

@@ -1,20 +1,22 @@
 ﻿using ConsoleGame.Component;
+using System;
 
 namespace ConsoleGame.model
 {
     public class Player : Sprite
     {
         PlayerComponent player = new PlayerComponent();
-        public Player(int hp, int x, int y, char style)
+        public Player(string id, int hp, int mp, int x, int y, char style, ConsoleColor color)
         {
+            this.Id = id;
+            this.player.Mp = mp;
             this.player.Hp = hp;
             this.Position.X = x;
             this.Position.Y = y;
             this.Velocity.Veloctity = Veloctity.right;
             this.Style = style;
+            this.Color = color;
             this.IsMove = false;
-
-
         }
         int attchInterval = 5;
 

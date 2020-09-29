@@ -55,8 +55,9 @@ namespace GameServer.script.logic
             else
             {
                 msgLogin.code = HttpStatusCode.OK;
+                c.user = user;
                 Player player = UserWrapper.ToPlayer(user, c);
-                c.user = player;
+
                 PlayerManager.AddPlayer(player);
                 msgLogin.result = JsonConvert.SerializeObject(user);
             }

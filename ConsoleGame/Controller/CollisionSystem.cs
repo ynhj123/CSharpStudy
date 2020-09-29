@@ -29,6 +29,7 @@ namespace ConsoleGame.Controller
                         SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
                         spriteDestorySystem.sprites.Enqueue(players[i]);
 
+
                     }
                 }
 
