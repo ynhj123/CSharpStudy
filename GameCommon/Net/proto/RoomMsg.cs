@@ -5,6 +5,17 @@ using System.Collections.Generic;
 using System.Net;
 
 
+public class MsgEndBattle : MsgBase
+{
+    public MsgEndBattle()
+    {
+        this.protoName = "MsgEndBattle";
+    }
+    public HttpStatusCode code;
+    public string result;
+    
+    
+}
 public class MsgStartBattle : MsgBase
 {
     public MsgStartBattle()

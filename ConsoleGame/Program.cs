@@ -41,7 +41,7 @@ namespace ConsoleGame
             NetManagerEvent.AddListener("MsgPrepare", OnPrepare);
             NetManagerEvent.AddListener("MsgUnprepare", OnUnprepare);
             NetManagerEvent.AddListener("MsgStartBattle", OnStartBattle);
-            NetManagerEvent.Connect("192.168.1.178", 8888);
+            NetManagerEvent.Connect("localhost", 8888);
 
         }
 

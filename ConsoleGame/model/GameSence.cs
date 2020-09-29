@@ -27,6 +27,7 @@ namespace ConsoleGame.model
         public void Load()
         {
             this.Load(25, 80, 15);
+            this.isStrat = true;
             Player player = sprites.Where(sprite => sprite.GetType() == typeof(Player)).Select(sprites => (Player)sprites).Where(player => player.Id == ScenceController.user.Userid).FirstOrDefault();
             ListenDieSystem listenDieSystem = new ListenDieSystem(player, this);
             KeywordSystem keywordSystem = new KeywordSystem(player, this);
@@ -48,7 +49,7 @@ namespace ConsoleGame.model
 
             this.interval = interval;
             this.map = new char[x, y];
-            InitMap(x, y);
+            
 
         }
 
@@ -115,7 +116,7 @@ namespace ConsoleGame.model
 
         public void Handle()
         {
-
+            InitMap(x, y);
             while (isStrat)
             {
                 ReflushMap();
@@ -147,14 +148,13 @@ namespace ConsoleGame.model
             if (isWin)
             {
                 Console.WriteLine("game win");
-
             }
             else
             {
                 Console.WriteLine("game over");
-
             }
-
+            Thread.Sleep(1000);
+            ScenceController.curScence = ScenceController.scenceDict["roomDetail"];
 
 
         }
