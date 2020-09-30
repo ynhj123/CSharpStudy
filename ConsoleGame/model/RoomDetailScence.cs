@@ -78,17 +78,32 @@ namespace ConsoleGame.model
             {
                 User user = users[i];
                 string status = "";
-                if (SwitchOwn(user.Userid))
+                if (room.Status == 0)
                 {
-                    status = "房主";
+                    if (SwitchOwn(user.Userid))
+                    {
+                        status = "房主";
+                    }
+                    else
+                    {
+                        status = userStatus[user.Userid] == true ? "准备" : "待准备";
+                    }
                 }
                 else
                 {
-                    status = userStatus[user.Userid] == true ? "准备" : "待准备";
+                    if (user.Userid == ScenceController.user.Userid)
+                    {
+                        status = "等待";
+                    }
+                    else
+                    {
+                        status = "战斗中";
+                    }
                 }
+
                 SwitchColor(i);
 
-                Console.WriteLine("   {0}  |  {1}|{2}| {3} |", i + 1, user.Username.PadLeft(8,' '), Convert.ToInt16(user.Score).ToString().PadLeft(8, ' '), status.PadLeft(4, ' '));
+                Console.WriteLine("   {0}  |  {1}|{2}| {3} |", i + 1, user.Username.PadLeft(8, ' '), Convert.ToInt16(user.Score).ToString().PadLeft(8, ' '), status.PadLeft(4, ' '));
 
             }
             Console.ResetColor();

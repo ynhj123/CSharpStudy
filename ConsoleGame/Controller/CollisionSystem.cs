@@ -18,22 +18,28 @@ namespace ConsoleGame.Controller
         {
             var sprites = scence.sprites;
             //碰撞监听
-            List<Sprite> players = sprites.Where(sprite => sprite.GetType() == typeof(Player)).ToList();
-            List<Sprite> skills = sprites.Where(sprite => sprite.GetType() == typeof(Skill)).ToList();
-            for (int i = players.Count - 1; i >= 0; i--)
+            Player player = (Player)sprites.Where(sprite => sprite.GetType() == typeof(Player) && sprite.Id == ScenceController.user.Userid).FirstOrDefault();
+            if(player!= null)
             {
+                List<Sprite> skills = sprites.Where(sprite => sprite.GetType() == typeof(Skill)).ToList();
                 for (int j = skills.Count - 1; j >= 0; j--)
                 {
-                    if (players[i].Position.X == skills[j].Position.X && players[i].Position.Y == skills[j].Position.Y)
+                    if (player.Position.X == skills[j].Position.X && player.Position.Y == skills[j].Position.Y)
                     {
                         SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
-                        spriteDestorySystem.sprites.Enqueue(players[i]);
-
+                        spriteDestorySystem.sprites.Enqueue(player);
+                        MsgLeave msgLeave = new MsgLeave
+                        {
+                            playId = player.Id
+                        };
+                        NetManagerEvent.Send(msgLeave);
 
                     }
                 }
-
             }
+            
+
         }
     }
 }
+

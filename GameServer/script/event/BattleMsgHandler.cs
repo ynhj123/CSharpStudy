@@ -9,19 +9,28 @@ namespace GameServer.script.logic
     public partial class MsgHandler
     {
 
-        public static void MsgMove(ClientState c, MsgBase msg)
+        public static void MsgMove(ClientState c, MsgBase msgBase)
         {
-            MsgMove msgMove = (MsgMove)msg;
-            Player player = PlayerManager.GetPlayer(msgMove.spriteId);
-            player.x = msgMove.x;
-            player.y = msgMove.y;
-            player.veloctity = msgMove.veloctity;
-            PlayerManager.Broadcast(msg);
+            MsgMove msg = (MsgMove)msgBase;
+            Player player = PlayerManager.GetPlayer(msg.spriteId);
+            player.x = msg.x;
+            player.y = msg.y;
+            player.veloctity = msg.veloctity;
+
+            User user = c.user;
+
+            //获取房间
+            Room room = RoomManager.GetRoom(user.RoomId);
+            room.Broadcast(msg);
         }
         public static void MsgAttack(ClientState c, MsgBase msg)
         {
 
-            PlayerManager.Broadcast(msg);
+            User user = c.user;
+
+            //获取房间
+            Room room = RoomManager.GetRoom(user.RoomId);
+            room.Broadcast(msg);
         }
 
         public static void MsgEnter(ClientState c, MsgBase msg)
@@ -48,11 +57,20 @@ namespace GameServer.script.logic
                 lists.Add(newMsg);
             }
             msgEnter.players = lists;
-            PlayerManager.Broadcast(msgEnter);
+            User user = c.user;
+
+            //获取房间
+            Room room = RoomManager.GetRoom(user.RoomId);
+            room.Broadcast(msgEnter);
         }
-        public static void OnLeave(ClientState c, MsgBase msg)
+        public static void MsgLeave(ClientState c, MsgBase msg)
         {
-            NetManager.Send(c, msg);
+
+            User user = c.user;
+
+            //获取房间
+            Room room = RoomManager.GetRoom(user.RoomId);
+            room.Broadcast(msg);
         }
     }
 }

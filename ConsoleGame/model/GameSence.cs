@@ -49,7 +49,7 @@ namespace ConsoleGame.model
 
             this.interval = interval;
             this.map = new char[x, y];
-            
+
 
         }
 
@@ -130,7 +130,7 @@ namespace ConsoleGame.model
                 {
                     bool isMove = sprites[i].Move(this);
                     //map[sprites[i].Position.X, sprites[i].Position.Y] = sprites[i].Style;
-                    if(sprites[i] is Player)
+                    if (sprites[i] is Player)
                     {
                         Player Player = (Player)sprites[i];
                         WriteAt(Player.Style.ToString(), sprites[i].Position.X, sprites[i].Position.Y, Player.Color);
@@ -148,16 +148,30 @@ namespace ConsoleGame.model
             if (isWin)
             {
                 Console.WriteLine("game win");
+                MsgEndBattle msgEndBattle = new MsgEndBattle();
+                NetManagerEvent.Send(msgEndBattle);
             }
             else
             {
                 Console.WriteLine("game over");
             }
+            Reset();
+            MsgGetRoomInfo msgGetRoomInfo = new MsgGetRoomInfo();
+            NetManagerEvent.Send(msgGetRoomInfo);
             Thread.Sleep(1000);
             ScenceController.curScence = ScenceController.scenceDict["roomDetail"];
 
 
         }
+
+        private void Reset()
+        {
+            this.sprites = new List<Sprite>();
+            this.isStrat = false;
+            this.isWin = false;
+            this.systems = new List<IExecuteSystem>();
+        }
+
         protected static void WriteAt(string s, int x, int y, ConsoleColor color = ConsoleColor.White)
         {
             try

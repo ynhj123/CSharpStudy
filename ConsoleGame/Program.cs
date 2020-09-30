@@ -37,12 +37,28 @@ namespace ConsoleGame
             NetManagerEvent.AddListener("MsgLogin", OnLogin);
             NetManagerEvent.AddListener("MsgListRoom", OnListRoom);
             NetManagerEvent.AddListener("MsgEnterRoom", OnEnterRoom);
+            NetManagerEvent.AddListener("MsgGetRoomInfo", OnGetRoomInfo);
             NetManagerEvent.AddListener("MsgLeaveRoom", OnLeaveRoom);
             NetManagerEvent.AddListener("MsgPrepare", OnPrepare);
             NetManagerEvent.AddListener("MsgUnprepare", OnUnprepare);
             NetManagerEvent.AddListener("MsgStartBattle", OnStartBattle);
-            NetManagerEvent.Connect("localhost", 8888);
+            NetManagerEvent.AddListener("MsgEndBattle", OnEndBattle);
+            NetManagerEvent.Connect("192.168.1.178", 8888);
 
+        }
+
+        private static void OnEndBattle(MsgBase msgBase)
+        {
+            MsgEndBattle msg = (MsgEndBattle)msgBase;
+            RoomDetailScence roomDetailScence = ContainerBuilder.Resolve<RoomDetailScence>();
+            roomDetailScence.Room = JsonConvert.DeserializeObject<Room>(msg.result);
+        }
+
+        private static void OnGetRoomInfo(MsgBase msgBase)
+        {
+            MsgGetRoomInfo msg = (MsgGetRoomInfo)msgBase;
+            RoomDetailScence roomDetailScence = ContainerBuilder.Resolve<RoomDetailScence>();
+            roomDetailScence.Room = JsonConvert.DeserializeObject<Room>(msg.result);
         }
 
         private static void OnStartBattle(MsgBase msgBase)
@@ -51,6 +67,7 @@ namespace ConsoleGame
             if (msg.code == HttpStatusCode.OK)
             {
                 GameSence gameSence = ContainerBuilder.Resolve<GameSence>();
+
                 List<MsgStartBattle.StartPlay> startPlays = msg.startPlays;
                 foreach (var item in startPlays)
                 {
@@ -117,7 +134,7 @@ namespace ConsoleGame
             {
                 RoomDetailScence roomDetailScence = ContainerBuilder.Resolve<RoomDetailScence>();
                 roomDetailScence.Room = JsonConvert.DeserializeObject<Room>(msg.result);
-            
+
             }
             else
             {
@@ -187,16 +204,27 @@ namespace ConsoleGame
 
         private static void OnLeave(MsgBase msgBase)
         {
-            throw new NotImplementedException();
+            MsgLeave msgLeave = (MsgLeave)msgBase;
+            GameSence gameSence = ContainerBuilder.Resolve<GameSence>();
+            Sprite spr = gameSence.sprites.Where(sprite => sprite.Id == msgLeave.playId).FirstOrDefault();
+            if (spr != null)
+            {
+                SpriteDestorySystem spriteDestorySystem = SpriteDestorySystem.GetSpriteDestorySystem();
+                spriteDestorySystem.sprites.Enqueue(spr);
+            }
+
         }
         private static void OnAttack(MsgBase msgBase)
         {
             MsgAttack msgAttack = (MsgAttack)msgBase;
             GameSence gameSence = ContainerBuilder.Resolve<GameSence>();
             List<Sprite> sprites = gameSence.sprites;
-            Sprite sprite = sprites.Where(spirte => spirte.Id == msgAttack.playId).First();
-            Player player = sprite as Player;
-            player.attach(gameSence);
+            Sprite sprite = sprites.Where(spirte => spirte.Id == msgAttack.playId).FirstOrDefault();
+            if (sprite != null)
+            {
+                Player player = sprite as Player;
+                player.attach(gameSence);
+            }
         }
 
         private static void OnMove(MsgBase msgBase)

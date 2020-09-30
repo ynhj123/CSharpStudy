@@ -123,7 +123,7 @@ namespace GameServer.script.logic
                 NetManager.Send(c, msg);
                 return;
             }
-            
+
             //获取房间
             Room room = RoomManager.GetRoom(user.RoomId);
             if (room == null)
@@ -218,20 +218,48 @@ namespace GameServer.script.logic
                 return;
             }
             //开战
-            /* if (!room.StartBattle())
-             {
-                 msg.code = HttpStatusCode.InternalServerError;
-                 NetManager.Send(c, msg);
-                 msg.result = "无法开始";
-                 return;
-             }*/
+            if (!room.StartBattle())
+            {
+                msg.code = HttpStatusCode.InternalServerError;
+                NetManager.Send(c, msg);
+                msg.result = "无法开始";
+                return;
+            }
             msg.startPlays = new List<MsgStartBattle.StartPlay>();
             for (int i = 0; i < room.Users.Count; i++)
             {
                 MsgStartBattle.StartPlay startPlay = UserWrapper.toStartPlay(i, room.Users[i]);
                 msg.startPlays.Add(startPlay);
             }
+            room.Status = 1;
             msg.code = HttpStatusCode.OK;
+            //成功
+            room.Broadcast(msg);
+        }
+
+        public static void MsgEndBattle(ClientState c, MsgBase msgBase)
+        {
+            MsgEndBattle msg = (MsgEndBattle)msgBase;
+            User user = c.user;
+            if (user == null) return;
+            //room
+            Room room = RoomManager.GetRoom(user.RoomId);
+            if (room == null)
+            {
+                msg.code = HttpStatusCode.NotFound;
+                msg.result = "房间不存在";
+                NetManager.Send(c, msg);
+                return;
+            }
+
+
+            Dictionary<string, bool> dictionaries = room.UserStatus.ToDictionary(pair => pair.Key, pair => false);
+            room.UserStatus = dictionaries;
+
+
+            room.Status = 0;
+            msg.code = HttpStatusCode.OK;
+            msg.result = JsonConvert.SerializeObject(room);
             //成功
             room.Broadcast(msg);
         }

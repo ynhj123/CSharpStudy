@@ -25,6 +25,8 @@ namespace GameServer.script.db
             {
                 Directory.CreateDirectory(file_path);
             }
+
+
             string content = JsonConvert.SerializeObject(users);
             IOUtils.SaveToFile_Binary(file_path + file_name, content);
         }

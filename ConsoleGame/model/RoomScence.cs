@@ -82,7 +82,8 @@ namespace ConsoleGame.model
 
 
 
-            }else if('2' == keyChar)
+            }
+            else if ('2' == keyChar)
             {
                 ScenceController.curScence = ScenceController.scenceDict["room"];
                 MsgListRoom msgListRoom = new MsgListRoom();

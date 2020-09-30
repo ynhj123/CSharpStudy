@@ -21,13 +21,13 @@ namespace GameServer.script.wrapper
             return player;
         }
 
-      
 
-        internal static MsgStartBattle.StartPlay toStartPlay(int index ,User user)
+
+        internal static MsgStartBattle.StartPlay toStartPlay(int index, User user)
         {
             MsgStartBattle.StartPlay startPlay = new MsgStartBattle.StartPlay();
             startPlay.Id = user.Userid;
-            startPlay.X = random.Next(1,20);
+            startPlay.X = random.Next(1, 20);
             startPlay.Y = random.Next(1, 70);
             startPlay.Index = index;
             return startPlay;

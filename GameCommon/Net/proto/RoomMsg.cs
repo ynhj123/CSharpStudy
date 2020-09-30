@@ -13,8 +13,8 @@ public class MsgEndBattle : MsgBase
     }
     public HttpStatusCode code;
     public string result;
-    
-    
+
+
 }
 public class MsgStartBattle : MsgBase
 {
@@ -95,7 +95,7 @@ public class MsgGetRoomInfo : MsgBase
     {
         this.protoName = "MsgGetRoomInfo";
     }
-    public int roomId;
+
     public HttpStatusCode code;
     public string result;
 }

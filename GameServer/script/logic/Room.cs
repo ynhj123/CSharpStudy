@@ -142,7 +142,12 @@ namespace GameServer.script.logic
 
         internal bool StartBattle()
         {
-            throw new NotImplementedException();
+            if(userStatus.Count == 1)
+            {
+                return false;
+            }
+            int count = userStatus.Where(pair => pair.Key != ownId && pair.Value == false).Count();
+            return count == 0;
         }
     }
 }

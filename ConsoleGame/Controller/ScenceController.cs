@@ -28,29 +28,7 @@ namespace ConsoleGame.Controller
             scenceDict.Add("user", ContainerBuilder.Resolve<UserScence>());
         }
 
-        /*private Scence InitGameScence()
-        {
-            
-            
-            
 
-
-
-            *//*MsgEnter msgEnter = new MsgEnter();
-            msgEnter.playId = player.Id;
-            msgEnter.x = player.Position.X;
-            msgEnter.y = player.Position.Y;
-            msgEnter.veloctity = (int)player.Velocity.Veloctity;
-
-            msgEnter.style = player.Style.ToString();
-
-            NetManagerEvent.Send(msgEnter);
-            while (!gameSence.isStrat)
-            {
-                NetManagerEvent.Update();
-            }*//*
-            return gameSence;
-        }*/
 
         public void Handle()
         {
