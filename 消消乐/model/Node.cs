@@ -8,9 +8,11 @@ namespace 消消乐.model
     {
         Type type;
         Status status;
+        Position position;
 
         internal Type Type { get => type; set => type = value; }
         internal Status Status { get => status; set => status = value; }
+        internal Position Position { get => position; set => position = value; }
 
         // override object.Equals
         public override bool Equals(object obj)
