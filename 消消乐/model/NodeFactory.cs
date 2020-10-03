@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace 消消乐.model
 {
     class NodeFactory
     {
-        int[] cache = new int[2];
-        public Node CreateNode(int x,int y)
+        static int[] cache = new int[2];
+        public static Node CreateNode(int x, int y)
         {
-           
+
 
             Node node = new Node();
             node.Type = RoundType();
             node.Status = Status.stop;
-            node.Position.X = x;
-            node.Position.Y = y;    
+
+            node.Position = new Position(x, y);
+
             return node;
         }
 
-        public Type RoundType()
+        public static Type RoundType()
         {
             int type = Program.random.Next(0, 7);
             //如果随机数连续出现3次则重随

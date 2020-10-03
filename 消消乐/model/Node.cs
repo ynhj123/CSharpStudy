@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace 消消乐.model
 {
@@ -14,31 +12,18 @@ namespace 消消乐.model
         internal Status Status { get => status; set => status = value; }
         internal Position Position { get => position; set => position = value; }
 
-        // override object.Equals
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-            if ((obj.GetType().Equals(this.GetType())) == false)
-            {
-                return false;
-            }
-            Node temp = null;
-            temp = (Node)obj;
-
-            return this.Type == temp.Type;
-
+            return obj is Node node &&
+                   type == node.type;
         }
 
-        // override object.GetHashCode
         public override int GetHashCode()
         {
-            // TODO: write your implementation of GetHashCode() here
-           
-            return base.GetHashCode();
+            return HashCode.Combine(type);
         }
+
+
     }
     enum Type
     {
@@ -48,7 +33,8 @@ namespace 消消乐.model
         green,
         gray,
         blue,
-        purple
+        purple,
+
     }
     enum Status
     {

@@ -19,7 +19,7 @@ namespace ConsoleGame.Controller
             var sprites = scence.sprites;
             //碰撞监听
             Player player = (Player)sprites.Where(sprite => sprite.GetType() == typeof(Player) && sprite.Id == ScenceController.user.Userid).FirstOrDefault();
-            if(player!= null)
+            if (player != null)
             {
                 List<Sprite> skills = sprites.Where(sprite => sprite.GetType() == typeof(Skill)).ToList();
                 for (int j = skills.Count - 1; j >= 0; j--)
@@ -37,7 +37,7 @@ namespace ConsoleGame.Controller
                     }
                 }
             }
-            
+
 
         }
     }

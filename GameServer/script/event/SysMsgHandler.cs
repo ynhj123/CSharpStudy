@@ -38,7 +38,7 @@ namespace GameServer.script.logic
                 user.Userid = UUIDUtils.GetUUID();
                 UserManager.Add(user);
                 msgResgistory.code = HttpStatusCode.OK;
-                msgResgistory.result = "注册成功"; 
+                msgResgistory.result = "注册成功";
                 NetManager.Send(c, msgResgistory);
             }
 

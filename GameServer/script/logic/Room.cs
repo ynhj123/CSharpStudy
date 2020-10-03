@@ -142,7 +142,7 @@ namespace GameServer.script.logic
 
         internal bool StartBattle()
         {
-            if(userStatus.Count == 1)
+            if (userStatus.Count == 1)
             {
                 return false;
             }
