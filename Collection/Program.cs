@@ -1,5 +1,4 @@
-﻿using Collection.Applicaiton;
-using System;
+﻿using System;
 
 namespace Collection
 {
@@ -8,7 +7,14 @@ namespace Collection
         public static Random random;
         static void Main(string[] args)
         {
-            PokemonManager manager = new PokemonManager();
+            short len = 1000;
+            byte[] bytes = new byte[2];
+            bytes[0] = (byte)(len % 256);
+            bytes[1] = (byte)(len / 256);
+
+            short l = (Int16)((bytes[0 + 1] << 8) | bytes[0]);
+
+            /*PokemonManager manager = new PokemonManager();
             var p1 = new Pokemon("皮卡丘", 10);
             var p2 = new Pokemon("水箭龟", 11);
             var p3 = new Pokemon("皮卡丘", 12);
@@ -28,7 +34,7 @@ namespace Collection
             manager.RemoveByID(2);
             manager.loadData("../../pokemon.txt");
             manager.Print();
-
+*/
 
             Console.ReadKey();
             /*String a = "abcxxxx";

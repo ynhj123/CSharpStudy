@@ -87,15 +87,15 @@ namespace 消消乐.model
                     //数据消除
                     //数据移动
                     //按列移动
-                   
+
                     foreach (var item in ReducesNodes)
                     {
                         Position position = item.Position;
 
                         while (position.Y > 0)
                         {
-                            Position goal = new Position(position.X, position.Y-1);
-                            position =  SwapNodeByPostion(position, goal);
+                            Position goal = new Position(position.X, position.Y - 1);
+                            position = SwapNodeByPostion(position, goal);
                         }
                     }
                     //数据填充
@@ -132,7 +132,7 @@ namespace 消消乐.model
                     WriteAt("*", j, i, SwitchColor(node));
                 }
             }
-            
+
             Console.WriteLine();
         }
 

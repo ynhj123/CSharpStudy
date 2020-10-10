@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Delegate
+﻿namespace Delegate
 {
     class Program
     {
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-        }
+        }*/
     }
 }
